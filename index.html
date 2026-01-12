@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang='ru'>
+<head>
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" type="image/png" href="media/favicon.png" />
+	<title>Gravity Hub — Сообщество</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<style>
+		@font-face {
+			font-family: Gratis;
+			src: url('fontz/gratis.ttf');
+		}
+		@font-face {
+			font-family: Nimbus;
+			src: url('fontz/nimbus.otf');
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+		html, body {
+			width: 100%;
+			height: 100%;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Roboto", sans-serif;
+			background: #0b0d12;
+			overflow: hidden;
+		}
+
+		/* фон, украл идею у телеграма */
+		body::before {
+			content: "";
+			position: fixed;
+			inset: -50%;
+			/* градіентніе кружочке */
+			background: radial-gradient(circle at 20% 20%,#2b2f4a,transparent 40%),
+			radial-gradient(circle at 80% 60%,#1a3a3f,transparent 45%),
+			radial-gradient(circle at 50% 90%,#2d1f3f,transparent 50%);
+			animation: drift 18s linear infinite;
+			filter: blur(60px);
+			opacity: 0.8;
+		}
+		@keyframes drift {
+			0% { transform: translate(0, 0) rotate(0deg); }
+			50% { transform: translate(5%, -3%) rotate(180deg); }
+			100% { transform: translate(0, 0) rotate(360deg); }
+		}
+		.screen {
+			position: relative;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		/* утонет */
+		.window {
+			width: 360px;
+			background: #12141c;
+			border: 1px solid #3f3f4a;
+			border-radius: 12px;
+			box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+			overflow: hidden;
+		}
+		.window-header {
+			height: 36px;
+			background: linear-gradient(to bottom,#1b1e2a,#141622);
+			display: flex;
+			align-items: center;
+			padding: 0 12px;
+			gap: 8px;
+			border-bottom: 1px solid #3a3a4f;
+		}
+		.window-title {
+			margin-left: auto;
+			margin-right: auto;
+			font-family: Gratis;
+			font-size: 12px;
+			color: #9aa0c3;
+			letter-spacing: 0.03em;
+			user-select: none;
+		}
+		.window-body {
+			padding: 28px 24px 32px;
+			text-align: center;
+		}
+
+		.message {
+			text-align: left;
+			font-size: 18px;
+			font-family: Nimbus;
+			color: #e6e8f2;
+			line-height: 1.15;
+			line-box: 2;
+			margin-bottom: 26px;
+		}
+
+		.action-button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			padding: 12px 20px;
+			background: linear-gradient(to bottom,#2b2f4a,#20243a);
+			border: 1px solid #3a3f66;
+			border-radius: 999px;
+			color: #ffffff;
+			text-decoration: none;
+			font-family: Gratis;
+			font-size: 14px;
+			font-weight: 500;
+			letter-spacing: 0.03em;
+			box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+			transition: all 0.2s ease;
+		} /* навалил параметров */
+		.action-button img {
+			width: 18px;
+			height: 18px;
+			margin: 0 -2 0 -2;
+			display: block;
+		}
+		.action-button:hover {
+			transform: translateY(-1px);
+			background: linear-gradient(to bottom,#343a66,#262b4a);
+		}
+		.action-button:active {
+			-webkit-tap-highlight-color: transparent;
+			transform: translateY(0);
+			box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.4);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="screen">
+		<div class="window">
+			<div class="window-header"><div class="window-title">Будьте в курсе событий</div></div>
+			<div class="window-body">
+				<div class="message">Сейчас в ꕥ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꕥ не заняты сайтом сообщества. Следите за новостями!</div>
+				<a class="action-button" href="https://t.me/GravityHub" target="_blank" rel="noopener noreferrer">
+					<!-- кнопка (пожалуйста, не крадите мои новичковые стили) -->
+					<img src="media/tubovski.png" alt="🇰🇿">
+					Перейти в группу
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
