@@ -1,171 +1,149 @@
 <!DOCTYPE html>
-<html lang='ru'>
+<html lang="ru">
 <head>
-	<meta charset="utf-8" />
-	<link rel="shortcut icon" type="image/png" href="media/favicon.png" />
-	<title>Gravity Hub — Сообщество</title>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/png" href="media/icon.png" />
+	<link rel="stylesheet" href="globalAsset.css">
+	<meta name='color-scheme' content='only light'>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<style>
-		@font-face {
-			font-family: Gratis;
-			src: url('fontz/gratis.ttf');
-		}
-		@font-face {
-			font-family: Nimbus;
-			src: url('fontz/nimbus.otf');
-		}
-
-		* {
-			box-sizing: border-box;
-			margin: 0;
-			padding: 0;
-		}
-		html, body {
-			width: 100%;
-			height: 100%;
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Roboto", sans-serif;
-			background: #0b0d12;
-			overflow: hidden;
-		}
-
-		/* фон, украл идею у телеграма */
-		body::before {
-			content: "";
-			position: fixed;
-			inset: -50%;
-			/* градіентніе кружочке */
-			background: radial-gradient(circle at 20% 20%,#2b2f4a,transparent 40%),
-			radial-gradient(circle at 80% 60%,#1a3a3f,transparent 45%),
-			radial-gradient(circle at 50% 90%,#2d1f3f,transparent 50%);
-			animation: drift 18s linear infinite;
-			filter: blur(60px);
-			opacity: 0.8;
-		}
-		@keyframes drift {
-			0% { transform: translate(0, 0) rotate(0deg); }
-			50% { transform: translate(5%, -3%) rotate(180deg); }
-			100% { transform: translate(0, 0) rotate(360deg); }
-		}
-		.screen {
-			position: relative;
-			z-index: 1;
-			width: 100%;
-			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		/* утонет */
-		.window {
-			width: 360px;
-			background: #12141c;
-			border: 1px solid #3f3f4a;
-			border-radius: 12px;
-			box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.03);
-			overflow: hidden;
-		}
-		.window-header {
-			height: 36px;
-			background: linear-gradient(to bottom,#1b1e2a,#141622);
-			display: flex;
-			align-items: center;
-			padding: 0 12px;
-			gap: 8px;
-			border-bottom: 1px solid #3a3a4f;
-		}
-		.window-title {
-			margin-left: auto;
-			margin-right: auto;
-			font-family: Gratis;
-			font-size: 12px;
-			color: #9aa0c3;
-			letter-spacing: 0.03em;
-			user-select: none;
-		}
-		.window-body {
-			padding: 28px 24px 32px;
-			text-align: center;
-		}
-		.window-textbox {
-			width: 320;
-			border: 1px solid #3C3F4D;
-			border-radius: 8px;
-			padding: 8px 8px 8px 8px;
-			margin-bottom: 20px;
-			background: radial-gradient(circle farthest-corner at 30px 30px, #7350FF1F, #3A3A8E50)
-		}
-		.window-textbox h2 {
-			text-align: left;
-			padding: 3px 0px 3px 10px;
-			font-family: Nimbus;
-			line-height: 1;
-			line-box: 2;
-			font-size: 20px;
-			color: #CBE1FF;
-		}
-
-		.message {
-			text-align: left;
-			font-size: 18px;
-			font-family: Nimbus;
-			color: #e6e8f2;
-			line-height: 1.15;
-			line-box: 2;
-		}
-
-		.action-button {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			gap: 10px;
-			padding: 12px 20px;
-			background: linear-gradient(to bottom,#2b2f4a,#20243a);
-			border: 1px solid #3a3f66;
-			border-radius: 999px;
-			color: #ffffff;
-			text-decoration: none;
-			font-family: Gratis;
-			font-size: 14px;
-			font-weight: 500;
-			letter-spacing: 0.03em;
-			box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-			transition: all 0.2s ease;
-		} /* навалил параметров */
-		.action-button img {
-			width: 18px;
-			height: 18px;
-			margin: 0 -2 0 -2;
-			display: block;
-		}
-		.action-button:hover {
-			transform: translateY(-1px);
-			background: linear-gradient(to bottom,#343a66,#262b4a);
-		}
-		.action-button:active {
-			-webkit-tap-highlight-color: transparent;
-			transform: translateY(0);
-			box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.4);
-		}
-	</style>
+	<title>Gravity Hub — О проекте</title>
 </head>
-
 <body>
-	<div class="screen">
-		<div class="window">
-			<div class="window-header"><div class="window-title">Будьте в курсе событий</div></div>
-			<div class="window-body">
-			<div class="window-textbox">
-			<div class="message">Сейчас в ꕥ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꕥ ведётся усердная работа над сайтом сообщества. Следите за новостями!</div>
-			</div>
-				<a class="action-button" href="https://t.me/GravityHub" target="_blank" rel="noopener noreferrer">
-					<!-- кнопка (пожалуйста, не крадите мои новичковые стили) -->
-					<img src="media/tubovski.png" alt="🇰🇿">
-					Перейти в группу
-				</a>
-			</div>
-		</div>
+	<!-- Фон -->
+	<div class="background-canvas">
+		<div class="bg-shape shape-1"></div>
+		<div class="bg-shape shape-2"></div>
+		<div class="bg-shape shape-3"></div>
 	</div>
+	<button class="menu-toggle" onclick="toggleMenu()" aria-label="Открыть меню">
+		<svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+	</button>
+	<div class="oldLoader">&nbsp;</div>  <!--загрузсие-->
+
+	<div class="wrapper">
+		<!-- вм -->
+		<aside class="sidebar" id="sidebar">
+			<div class="sidebar-header">
+				<h2>GRAVITY HUB</h2>
+			</div>
+			<nav>
+				<ul class="nav-list">
+					<li class="nav-item">
+						<a href="#" class="nav-link active">
+							<span class="nav-icon">
+								<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+							</span>
+							<span class="title">О проекте</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="people.html" class="nav-link">
+							<span class="nav-icon">
+								<svg width="800px" height="800px" viewBox="0 0 24 24"><g id="GravityHub-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="User" transform="translate(-384, -48)" fill-rule="nonzero"><g id="verifZ" transform="translate(384, 48)"><path d="M24,0 L24,24 L0,24 L0,0 L24,0 Z M12.5934901,23.257841 L12.5819402,23.2595131 L12.5108777,23.2950439 L12.4918791,23.2987469 L12.4918791,23.2987469 L12.4767152,23.2950439 L12.4056548,23.2595131 C12.3958229,23.2563662 12.3870493,23.2590235 12.3821421,23.2649074 L12.3780323,23.275831 L12.360941,23.7031097 L12.3658947,23.7234994 L12.3769048,23.7357139 L12.4804777,23.8096931 L12.4953491,23.8136134 L12.4953491,23.8136134 L12.5071152,23.8096931 L12.6106902,23.7357139 L12.6232938,23.7196733 L12.6232938,23.7196733 L12.6266527,23.7031097 L12.609561,23.275831 C12.6075724,23.2657013 12.6010112,23.2592993 12.5934901,23.257841 L12.5934901,23.257841 Z M12.8583906,23.1452862 L12.8445485,23.1473072 L12.6598443,23.2396597 L12.6498822,23.2499052 L12.6498822,23.2499052 L12.6471943,23.2611114 L12.6650943,23.6906389 L12.6699349,23.7034178 L12.6699349,23.7034178 L12.678386,23.7104931 L12.8793402,23.8032389 C12.8914285,23.8068999 12.9022333,23.8029875 12.9078286,23.7952264 L12.9118235,23.7811639 L12.8776777,23.1665331 C12.8752882,23.1545897 12.8674102,23.1470016 12.8583906,23.1452862 L12.8583906,23.1452862 Z M12.1430473,23.1473072 C12.1332178,23.1423925 12.1221763,23.1452606 12.1156365,23.1525954 L12.1099173,23.1665331 L12.0757714,23.7811639 C12.0751323,23.7926639 12.0828099,23.8018602 12.0926481,23.8045676 L12.108256,23.8032389 L12.3092106,23.7104931 L12.3186497,23.7024347 L12.3186497,23.7024347 L12.3225043,23.6906389 L12.340401,23.2611114 L12.337245,23.2485176 L12.337245,23.2485176 L12.3277531,23.2396597 L12.1430473,23.1473072 Z" id="MingCute" fill-rule="nonzero"></path><path d="M16,14 C18.7614,14 21,16.2386 21,19 L21,20 C21,21.1046 20.1046,22 19,22 L5,22 C3.89543,22 3,21.1046 3,20 L3,19 C3,16.2386 5.23858,14 8,14 L16,14 Z M21.4141,9.08134 C21.8047,8.69082 22.4378,8.69082 22.8284,9.08134 C23.1888615,9.44182923 23.2165893,10.0090309 22.9115834,10.4013771 L22.8284,10.4956 L19.9999,13.324 C19.6394385,13.6844615 19.0721793,13.7121893 18.6799027,13.4071834 L18.5857,13.324 L17.1715,11.9098 C16.781,11.5192 16.781,10.8861 17.1715,10.4956 C17.5319615,10.1350462 18.0992207,10.1073112 18.4914973,10.4123953 L18.5857,10.4956 L19.2928,11.2027 L21.4141,9.08134 Z M12,2 C14.7614,2 17,4.23858 17,7 C17,9.76142 14.7614,12 12,12 C9.23858,12 7,9.76142 7,7 C7,4.23858 9.23858,2 12,2 Z" id="GravityHub-2" fill="currentColor"></path></g></g></g></svg>							</span>
+							<span class="title">Гордость сообщества</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="rulestate.html" class="nav-link">
+							<span class="nav-icon">
+								<svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 0 .5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 2h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 4h10a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 6h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 8h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/></svg>
+							</span>
+							<span class="title">Регламент и партнёрство</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="info.html" class="nav-link">
+							<span class="nav-icon">
+								<svg width="16px" height="16px" viewBox="0 0 22 22"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Dribbble-Light-Preview" transform="translate(-141, -8079)" fill="currentColor"><g id="icons" transform="translate(56, 160)"><path d="M97,7933 L92,7933 C91.448,7933 91,7932.552 91,7932 L91,7926 C91,7925.448 91.448,7925 92,7925 L96,7925 C96.552,7925 97,7925.448 97,7926 L97,7933 Z M97,7923 L91,7923 C89.896,7923 89,7923.895 89,7925 L89,7933 C89,7934.105 89.896,7935 91,7935 L101,7935 C102.104,7935 103,7934.105 103,7933 L103,7921 C103,7919.895 102.104,7919 101,7919 L87,7919 C85.896,7919 85,7919.895 85,7921 L85,7937 C85,7938.105 85.896,7939 87,7939 L102,7939 C102.552,7939 103,7938.552 103,7938 C103,7937.448 102.552,7937 102,7937 L88,7937 C87.448,7937 87,7936.552 87,7936 L87,7922 C87,7921.448 87.448,7921 88,7921 L100,7921 C100.552,7921 101,7921.448 101,7922 L101,7932 C101,7932.552 100.552,7933 100,7933 L99,7933 L99,7925 C99,7923.895 98.104,7923 97,7923 L97,7923 Z" id="at_sign"></path></g></g></g></svg>
+							</span>
+							<span class="title">Контакты и АП</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+
+	<div class="loadPatch">
+	<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+		<!--КОНТЕНТ -->
+		<main class="main-content">
+			<h1>О проекте</h1>
+			<div class="content-card">
+				<div class="videoloop"><h2>Сайт, значит, не завершён...</h2><img src="media/HaXyTope.gif"><p>Что я, в самом деле, за дурак, стою тут и греха набираюсь! Я тебе выкую такой сайт, какой редкий сеньор напишет.</p></div>
+			</div>
+		</main>
+	</div>
+	</div> <!-- отбраковщик -->
+	<!-- сноска -->
+	<div class="project-footer">
+		<span class="nospace">ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ</span> ⚎ © 2026
+	</div>
+
+	<script>
+		// inner
+
+		// Менюш
+		const sidebar = document.getElementById('sidebar');
+		const overlay = document.getElementById('overlay');
+
+		function toggleMenu() {
+			const isOpen = sidebar.classList.contains('open');
+			if (!isOpen) {
+				sidebar.classList.add('open');
+				document.body.classList.add('menu-open');
+				overlay.classList.add('active');
+				sidebar.classList.add('animating');
+			} else {
+				sidebar.classList.remove('open');
+				document.body.classList.remove('menu-open');
+				overlay.classList.remove('active');
+			}
+		}
+
+		const navLinks = document.querySelectorAll('.nav-link');
+		navLinks.forEach(link => {
+			link.style.cursor = 'pointer';
+			link.addEventListener('click', (e) => {
+				if (link.getAttribute('href') === '#') {
+					e.preventDefault(); // gundone
+				}
+
+				if (window.innerWidth <= 1024) {
+					toggleMenu();
+				}
+			});
+		});
+		
+		sidebar.addEventListener('animationend', (e) => {
+			if (e.animationName === 'scan') {
+				sidebar.classList.remove('animating');
+			}
+		});
+
+		// фича под esc, это мне уже нейросеть подарила
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+				toggleMenu();
+		}});
+		
+		function fontsize() {
+			let parent = document.querySelector('.main-content');
+			let text = document.querySelector('.main-content h1');
+			let w = parent.offsetWidth;
+  			text.style.fontSize = w/8 + "px";
+		}
+		
+		window.onload = fontsize;
+		window.onresize = fontsize;
+		window.addEventListener('load', function () {
+			setTimeout(() => {
+				document.querySelector('.loadPatch').classList.add('done');
+				const bashka = document.querySelector('.oldLoader');
+				bashka.classList.add('done');
+				// Этот черт перехватывает href
+				setTimeout(()=>bashka.remove(),1000);
+			}, 1000);
+		});
+	</script>
 </body>
 </html>
