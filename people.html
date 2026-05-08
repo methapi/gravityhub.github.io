@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/png" href="media/icon.png" />
+	<link rel="stylesheet" href="globalAsset.css">
+	<meta name='color-scheme' content='only light'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Gravity Hub — Люди</title>
+
+	<!-- Временная мера. Сейчас на ПК кошмарно отображаются заголовки карточек -->
+	<script>
+		if (window.innerWidth > 1024) {
+			window.location.href = "mobileOnly.html";
+		}
+	</script>
+	<style>
+	article {
+		text-indent: var(--default-text-indent);
+		hyphens: auto;
+	}
+	.roleInfo {
+		position: relative;
+		display: block;
+		background: #FFFFFF15;
+		border: 1px solid #FFFFFF30;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		border-radius: var(--border-radius) /*globalAsset.css*/;
+		padding: 6px 5px 6px 5px;
+	}
+	.roleInfo li {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-flow: row nowrap;
+		padding-bottom: 8px;
+		margin-top: 8px;
+	}
+	.roleInfo li:not(:last-child) {
+		border-bottom: 2px dotted #E2FFEC80;
+	}
+	.roleInfo li .imageWrapper {
+		position: relative;
+		display: block;
+		height: 100%;
+		width: 100%;
+	}
+	.roleInfo li .imageWrapper img {
+		position: relative;
+		height: 100%;
+		width: 100%;
+		filter: drop-shadow(0 0 10px #00301D);
+	}
+	.roleInfo li article {
+		height: 100%;
+		position: relative;
+		max-width: 60%;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-self: flex-start;
+	}
+	.roleInfo li article p {
+		font-size: clamp(14px, 2vw, 36px);
+		text-indent: 1em;
+	}
+	.roleInfo li  article p:not(:last-child) {
+		margin-bottom: 8px;
+	}
+	.roleInfo li article blockquote {
+		display: block;
+		background: #0E1D1660;
+		border: 1px solid #3F4C43;
+		border-radius: var(--border-radius);
+		font-size: 14px;
+		font-family: CCUltimatum;
+		color: #C1E6D4;
+		padding: 2px 5px;
+		text-indent: 0;
+		text-align: center;
+	}
+	.roleInfo li h4 {
+		position: relative;
+		display: block;
+		background: linear-gradient(to right, #FFFFFF60, #FFFFFF20 60%);
+		border-radius: 5px;
+		margin-bottom: 10px;
+		font-family: CCUltimatum;
+		font-size: 25px;
+	}
+	.roleInfo li .midBreak {
+		align-self: stretch;
+		width: 1px;
+		background: #FFFFFF50;
+		margin: 0 10px;
+	}
+	/* Карточки */
+	.MemberCard {
+		display: block;
+		position: relative;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		padding: 0;
+		width: 90vw;
+		left: 50%;
+		transform: translateX(-50%);
+		border-radius: var(--border-radius);
+		overflow: hidden;
+		/* Модифицируемое ↓ */
+		background: #FFFFFF;
+		border: solid 2px #000000;
+	}
+	.MemberCard .MemberTop {
+		display: flex;
+		justify-content: space-between;
+		align-content: center;
+		padding-bottom: 1%;
+		flex-direction: row;
+		width: 100%;
+		/* Модифицируемое ↓ */
+		background: #00000020;
+	}
+	.MemberCard .MemberTop .MemberName {
+		position: relative;
+		display: inline;
+		padding: 3px 3px 3px 3px;
+		width: 70%;
+		font-family: Gratis;
+		font-size: clamp(30px, 8.5vw, 64px);
+		line-height: 1.1;
+		text-indent: -30px;
+		text-shadow: 0 0 20px #00000040;
+		/* Модифицируемое ↓ */
+		color: #000000;
+	}
+	.MemberCard .MemberTop img,
+	.MemberCard .MemberTop video {
+		display: block;
+		position: relative;
+		width: 20vw;
+		aspect-ratio: 1/1;
+		left: 5%;
+		border-radius: 0 0 50% 50%;
+		margin-right: 20%;
+	}
+	.MemberCard .MemberRole {
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+		margin: 5px 0px;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+		padding: 5px 15px;
+		gap: 7px;
+		width: 90%;
+		border-radius: var(--border-radius);
+		border: 1px solid #A0A0A040;
+		background: #EFEFEF20;
+		flex-flow: row wrap;
+	}
+	.MemberCard .MemberRole .RoleObject {
+		position: relative;
+		padding: 1px 5px;
+		height: 25px;
+		display: flex;
+		gap: 7px;
+		border: 1px solid #FFFFFFA0;
+		border-radius: 3px;
+		background: #FFFFFF40;
+		align-items: center;
+		flex-flow: row nowrap;
+		overflow: hidden;
+	}
+	.MemberCard .MemberRole .RoleObject img {
+		position: relative;
+		height: 90%;
+		aspect-ratio: 1/1;
+		filter: drop-shadow(1px 1px 0.5px #000000AA);
+	}
+	.MemberCard .MemberRole .RoleObject span {
+		position: relative;
+		font-size: 14px;
+		color: #000000;
+		font-family: CCUltimatum;
+	}
+	.MemberCard .MemberRole .RoleObject span::before {
+		content: "";
+		position: absolute;
+		width: 1px;
+		height: 20px;
+		background: #130900DD;
+		left: -4px;
+		top: -2px;
+	}
+	
+	.MemberCard .MemberRole .RoleObject.detective {
+		background: #E5C49E40;
+		border: 1px solid #A28B70;
+	}
+	.MemberCard .MemberRole .RoleObject.informer {
+		background: #BAF3FF30;
+		border: 1px solid #4BA79C70;
+	}
+	.MemberCard .MemberRole .RoleObject.archivist {
+		background: #FFF5CB30;
+		border: 1px solid #9A978770;
+	}
+	.MemberCard .MemberRole .RoleObject.educator {
+		background: #C8FFDF30;
+		border: 1px solid #638B7470;
+	}
+	.MemberCard .MemberRole .RoleObject.developer {
+		background: #E2B6FF30;
+		border: 1px solid #A06CC170;
+	}
+	.MemberCard .MemberRole .RoleObject.agent {
+		background: #1D1E2020;
+		border: 1px solid #00000040;
+	}
+	/* Коррект. для тёмной гаммы */
+	.MemberCard .MemberRole.dark .RoleObject span {
+		color: #FFFFFFFA;
+	}
+	.MemberCard .MemberRole.dark .RoleObject span::before {
+		background: #F5F5F550;
+	}
+	.MemberCard .MemberRole.dark .RoleObject img {
+		filter: drop-shadow(0px 0px 2px #000000E7);
+	}
+	.MemberCard .MemberRole.dark .RoleObject.detective {
+		background: #FFECDA2A;
+	}
+	.MemberCard .MemberRole.dark .RoleObject.detective span {
+		color: #FFECDA;
+	}
+	.MemberCard .MemberRole.dark .RoleObject.educator {
+		background: #CFFFE330;
+		border-color: #C1FFDB80;
+	}
+	.MemberCard .MemberRole.dark .RoleObject.educator span {
+		color: #E2FFEE;
+	}
+	.MemberCard .MemberRole.dark .RoleObject.developer {
+		background: #F4CEFF30;
+		border-color: #F1BEFF80;
+	}
+	.MemberCard .MemberRole.dark .RoleObject.developer span {
+		color: #F6D8FF;
+	}
+	.MemberCard .MemberRole.dark .RoleObject.agent {
+		background: #D4D8E230;
+		border-color: #D2D2D280;
+	}
+	.MemberCard .MemberRole.dark .RoleObject.agent span {
+		color: #E0F2FF;
+	}
+	
+	.MemberCard .MemberDescription {
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+		background: #0000001F;
+		width: 95%;
+		margin: 10px 0px 10px 0px;
+		padding: 5px 10px;
+		border-radius: var(--border-radius);
+		/* Модифицируемое ↓ */
+		color: #111111;
+	}
+	.MemberCard .MemberDescription p {
+		font-family: Rubik;
+		font-size: 16px;
+		font-weight: 375;
+		letter-spacing: -0.6px;
+		text-indent: 10px;
+		line-height: 1;
+		margin: 0;
+	}
+	.MemberCard .MemberDescription p + p {
+		margin-top: 10px;
+	}
+	.MemberCard .MemberDescription p b {
+		font-family: inherit;
+		font-weight: 450;
+		display: inline;
+		padding: 0;
+		margin: 0;
+	}
+	.MemberCard .MemberDescription p i {
+		font-family: inherit;
+		font-weight: inherit;
+		display: inline;
+		padding: 0;
+		margin: 0;
+	}
+	/* В главных ролях: */
+	/* Богдан Гвоздов */
+	.MemberCard.BogdanGvozdov .MemberTop {
+		background: #E0E2DF;
+	}
+	.MemberCard.BogdanGvozdov .MemberTop img {
+		filter: drop-shadow(0 0 10px #F9FCF8);
+	}
+	.MemberCard.BogdanGvozdov {
+		border-color: #9E9E9E;
+	}
+	
+	/* Егор Роге */
+	.MemberCard.EgorRoge {
+		background-image: url("media/people/BG-EgorRoge.png");
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	.MemberCard.EgorRoge .MemberTop {
+		background: #120C0659;
+	}
+	.MemberCard.EgorRoge .MemberTop .MemberName {
+		color: #FFF3E7EF;
+		mix-blend-mode: screen;
+		font-size: clamp(30px, 10vw, 80px);
+		line-height: 1;
+		text-shadow: 0 0 10px #FFF5E867, 0 0 30px #FFEBD424;
+	}
+	.MemberCard.EgorRoge .MemberTop img {
+		filter: drop-shadow(0 0 10px #000000);
+	}
+	.MemberCard.EgorRoge .MemberRole {
+		border-color: #16110DC0;
+		background: #29221DF0;
+	}
+	.MemberCard.EgorRoge .MemberDescription {
+		background: linear-gradient(to bottom, #FFD5BE50, #FBF9F720);
+		box-shadow: 0 0 5px #000000;
+	}
+	.MemberCard.EgorRoge .MemberDescription p {
+		color: #FFF6EB;
+		font-weight: 200;
+	}
+	
+	/* Егор Канопанов */
+	.MemberCard.EgorKanopanov {
+		background: linear-gradient(45deg, #04082E, #6D0052);
+		border-color: #332A3F90;
+	}
+	.MemberCard.EgorKanopanov .MemberTop img {
+		margin-right: 7.25%;
+	}
+	.MemberCard.EgorKanopanov .MemberTop .MemberName {
+		text-align: center;
+		text-indent: 0;
+		color: transparent;
+		background-image: radial-gradient(circle at center, #EEDAFF, #DDD7FF);
+		background-clip: text;
+		font-size: clamp(24px, 8vw, 64px);
+	}
+	.MemberCard.EgorKanopanov .MemberDescription {
+		background: linear-gradient(45deg, #F7D1FF5A, #C2CEFF2C);
+	}
+	.MemberCard.EgorKanopanov .MemberDescription p {
+		color: #F4F5FF;
+		font-weight: 200;
+	}
+	
+	/* Асп */
+	.MemberCard.Asperger {
+		background: linear-gradient(to bottom, #0054FF, #3BABFF);
+		border-color: #F7EAFF80;
+	}
+	.MemberCard.Asperger .MemberTop {
+		background: #C6DBE035;
+	}
+	.MemberCard.Asperger .MemberTop .MemberName {
+		font-size: clamp(32px, 11vw, 72px);
+		color: #CFF6FF;
+		align-self: center;
+	}
+	.MemberCard.Asperger .MemberTop img {
+		filter: drop-shadow(0 0 5px #000000AA);
+	}
+	.MemberCard.Asperger .MemberRole {
+		background-color: #CFF6FFDF;
+		border-color: #AEC8EBED;
+	}
+	.MemberCard.Asperger .MemberDescription {
+		background: #E8F2FFAA;
+	}
+	
+	/* Трейлер */
+	.MemberCard.TheTrayler {
+		background: radial-gradient(circle at center, #DBFFF7, #DCE8DF);
+		border-color: #1B2E1A;
+	}
+	.MemberCard.TheTrayler .MemberTop {
+		background: #1C7E3B27;
+	}
+	.MemberCard.TheTrayler .MemberTop img {
+		margin-right: 7.25%;
+	}
+	.MemberCard.TheTrayler .MemberTop .MemberName {
+		font-size: clamp(30px, 9vw, 64px);
+		align-self: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		align-content: center;
+		text-indent: 0;
+		text-align: center;
+		color: #1E221F;
+	}
+	.MemberCard.TheTrayler .MemberTop .MemberName .Upper,
+	.MemberCard.TheTrayler .MemberTop .MemberName span {
+		font-family: inherit;
+	}
+	.MemberCard.TheTrayler .MemberTop .MemberName .Upper {
+		font-size: clamp(12px, 4.5vw, 32px);
+	}
+	.MemberCard.TheTrayler .MemberRole {
+		background: #A4A4A430;
+		border-color: #95B0A1;
+	}
+	
+	/* Виндюха */
+	 .MemberCard.WindStorm {
+		background-image: url("media/people/BG-WindStorm.png");
+		background-size: cover;
+		background-repeat: no-repeat;
+		border: 1px solid #CBFFE1;
+	 }
+	 .MemberCard.WindStorm .MemberTop {
+	 	background: #18633670;
+	 	backdrop-filter: blur(8px);
+	 	border-bottom: 2px solid #CBFFE1DF;
+	 }
+	 .MemberCard.WindStorm .MemberTop .MemberName {
+		font-size: clamp(32px, 8vw, 72px);
+		color: #E0FFE9;
+		align-self: center;
+	 }
+	 .MemberCard.WindStorm .MemberTop video {
+	 	margin-right: 17%;
+	 	border-radius: 0 0 25% 25%;
+	 }
+	 .MemberCard.WindStorm .MemberRole {
+	 	background: #0C1B14D8;
+	 	border-color: #00221990;
+	 }
+	 .MemberCard.WindStorm .MemberDescription {
+	 	background: linear-gradient(to bottom, #0C1B14D8, #00221990);
+	 	color: #D6FFE0;
+	 }
+	 .MemberCard.WindStorm .MemberDescription p,
+	 .MemberCard.WindStorm .MemberDescription i {
+	 	font-weight: 300;
+	 }
+	</style>
+</head>
+<body>
+	<!-- Фон -->
+	<div class="background-canvas">
+		<div class="bg-shape shape-1"></div>
+		<div class="bg-shape shape-2"></div>
+		<div class="bg-shape shape-3"></div>
+	</div>
+	<button class="menu-toggle" onclick="toggleMenu()" aria-label="Открыть меню">
+		<svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+	</button>
+	<div class="oldLoader">&nbsp;</div>  <!--загрузсие-->
+
+	<div class="wrapper">
+		<!-- вм -->
+		<aside class="sidebar" id="sidebar">
+			<div class="sidebar-header">
+				<h2>GRAVITY HUB</h2>
+			</div>
+			<nav>
+				<ul class="nav-list">
+					<li class="nav-item">
+						<a href="index.html" class="nav-link pinned">
+							<span class="nav-icon">
+								<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+							</span>
+							<span class="title">О проекте</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="nav-link active">
+							<span class="nav-icon">
+								<svg width="800px" height="800px" viewBox="0 0 24 24"><g id="GravityHub-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="User" transform="translate(-384, -48)" fill-rule="nonzero"><g id="verifZ" transform="translate(384, 48)"><path d="M24,0 L24,24 L0,24 L0,0 L24,0 Z M12.5934901,23.257841 L12.5819402,23.2595131 L12.5108777,23.2950439 L12.4918791,23.2987469 L12.4918791,23.2987469 L12.4767152,23.2950439 L12.4056548,23.2595131 C12.3958229,23.2563662 12.3870493,23.2590235 12.3821421,23.2649074 L12.3780323,23.275831 L12.360941,23.7031097 L12.3658947,23.7234994 L12.3769048,23.7357139 L12.4804777,23.8096931 L12.4953491,23.8136134 L12.4953491,23.8136134 L12.5071152,23.8096931 L12.6106902,23.7357139 L12.6232938,23.7196733 L12.6232938,23.7196733 L12.6266527,23.7031097 L12.609561,23.275831 C12.6075724,23.2657013 12.6010112,23.2592993 12.5934901,23.257841 L12.5934901,23.257841 Z M12.8583906,23.1452862 L12.8445485,23.1473072 L12.6598443,23.2396597 L12.6498822,23.2499052 L12.6498822,23.2499052 L12.6471943,23.2611114 L12.6650943,23.6906389 L12.6699349,23.7034178 L12.6699349,23.7034178 L12.678386,23.7104931 L12.8793402,23.8032389 C12.8914285,23.8068999 12.9022333,23.8029875 12.9078286,23.7952264 L12.9118235,23.7811639 L12.8776777,23.1665331 C12.8752882,23.1545897 12.8674102,23.1470016 12.8583906,23.1452862 L12.8583906,23.1452862 Z M12.1430473,23.1473072 C12.1332178,23.1423925 12.1221763,23.1452606 12.1156365,23.1525954 L12.1099173,23.1665331 L12.0757714,23.7811639 C12.0751323,23.7926639 12.0828099,23.8018602 12.0926481,23.8045676 L12.108256,23.8032389 L12.3092106,23.7104931 L12.3186497,23.7024347 L12.3186497,23.7024347 L12.3225043,23.6906389 L12.340401,23.2611114 L12.337245,23.2485176 L12.337245,23.2485176 L12.3277531,23.2396597 L12.1430473,23.1473072 Z" id="MingCute" fill-rule="nonzero"></path><path d="M16,14 C18.7614,14 21,16.2386 21,19 L21,20 C21,21.1046 20.1046,22 19,22 L5,22 C3.89543,22 3,21.1046 3,20 L3,19 C3,16.2386 5.23858,14 8,14 L16,14 Z M21.4141,9.08134 C21.8047,8.69082 22.4378,8.69082 22.8284,9.08134 C23.1888615,9.44182923 23.2165893,10.0090309 22.9115834,10.4013771 L22.8284,10.4956 L19.9999,13.324 C19.6394385,13.6844615 19.0721793,13.7121893 18.6799027,13.4071834 L18.5857,13.324 L17.1715,11.9098 C16.781,11.5192 16.781,10.8861 17.1715,10.4956 C17.5319615,10.1350462 18.0992207,10.1073112 18.4914973,10.4123953 L18.5857,10.4956 L19.2928,11.2027 L21.4141,9.08134 Z M12,2 C14.7614,2 17,4.23858 17,7 C17,9.76142 14.7614,12 12,12 C9.23858,12 7,9.76142 7,7 C7,4.23858 9.23858,2 12,2 Z" id="GravityHub-2" fill="currentColor"></path></g></g></g></svg>							</span>
+							<span class="title">Гордость сообщества</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="rulestate.html" class="nav-link">
+							<span class="nav-icon">
+								<svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 0 .5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 2h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 4h10a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 6h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 8h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/></svg>
+							</span>
+							<span class="title">Регламент и партнёрство</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="info.html" class="nav-link">
+							<span class="nav-icon">
+								<svg width="16px" height="16px" viewBox="0 0 22 22"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Dribbble-Light-Preview" transform="translate(-141, -8079)" fill="currentColor"><g id="icons" transform="translate(56, 160)"><path d="M97,7933 L92,7933 C91.448,7933 91,7932.552 91,7932 L91,7926 C91,7925.448 91.448,7925 92,7925 L96,7925 C96.552,7925 97,7925.448 97,7926 L97,7933 Z M97,7923 L91,7923 C89.896,7923 89,7923.895 89,7925 L89,7933 C89,7934.105 89.896,7935 91,7935 L101,7935 C102.104,7935 103,7934.105 103,7933 L103,7921 C103,7919.895 102.104,7919 101,7919 L87,7919 C85.896,7919 85,7919.895 85,7921 L85,7937 C85,7938.105 85.896,7939 87,7939 L102,7939 C102.552,7939 103,7938.552 103,7938 C103,7937.448 102.552,7937 102,7937 L88,7937 C87.448,7937 87,7936.552 87,7936 L87,7922 C87,7921.448 87.448,7921 88,7921 L100,7921 C100.552,7921 101,7921.448 101,7922 L101,7932 C101,7932.552 100.552,7933 100,7933 L99,7933 L99,7925 C99,7923.895 98.104,7923 97,7923 L97,7923 Z" id="at_sign"></path></g></g></g></svg>
+							</span>
+							<span class="title">Контакты и АП</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+
+	<div class="loadPatch">
+	<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+		<!--КОНТЕНТ -->
+		<main class="main-content">
+			<h1>Гордость сообщества</h1>
+			<div class="content-card">
+				<article>
+					<p>Сообщество ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ богато успешными разработками и безупречными идеями. Всё, чем сейчас гордятся Детективы, находится во владении ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ только благодаря <b>людям</b>, которые работают над достижением нашим сообществом славных успехов.</p>
+				</article>
+			</div>
+			<ul class="roleInfo">
+				<li>
+					<div class="imageWrapper">
+						<img src="media/people/hd_vladektiv.png">
+					</div>
+					<div class="midBreak">&nbsp;</div>
+					<article>
+						<h4>Детектив</h4>
+						<p>Ваш самый ценный навык — умение искать и анализировать. <b>Детективы</b> многократно заслуживают почести благодаря своей исследовательской работе.</p>
+						<p>У Детективов нет чёткого пути, но есть конкретная цель: <b>отыскать</b> искомый контакт, информацию или ресурс. Работая методом OSINT, можно найти много полезных объектов доказательств или опровержений — успехами в этом деле и славятся <b>Детективы</b>.</p>
+						<p>По праву Детективом можно назвать каждого активного участника ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ, но символом отличия может стать только его помощь исследовательскому сообществу.</p>
+						<blockquote><b>Герой иконки:</b> Влад Левченко — херсонский геймдев</blockquote>
+					</article>
+				</li>
+				<li>
+					<div class="imageWrapper">
+						<img src="media/people/hd_nikinformator.png">
+					</div>
+					<div class="midBreak">&nbsp;</div>
+					<article>
+						<h4>Информатор</h4>
+						<p>Не к каждому существующему сообществу или проекту у ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ есть доступ. Поэтому от <b>Информаторов</b> мы можем получить ценные сведения: их связи с закрытыми комьюнити, а также память и воспоминания <b>значительно выручают</b> при поиске и организации знаний форума.</p>
+						<blockquote><b>Герой иконки:</b> Никита Левикин — херсонский геймдев</blockquote>
+					</article>
+				</li>
+				<li>
+					<div class="imageWrapper">
+						<img src="media/people/hd_igorivist.png">
+					</div>
+					<div class="midBreak">&nbsp;</div>
+					<article>
+						<h4>Архивист</h4>
+						<p>Иногда бывает полезно сохранить информацию в удобные сборники, чтобы она оставалась доступной долгое время. <b>Архивисты</b> помогают содержать полезные или вовсе редкие ресурсы в организованной досягаемости.</p>
+						<p>Архивистами ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ были созданы документальные проекты <b>XON Archive</b>, <b>QBox Archive</b>, ⊻ 𝗣𝗵𝘆𝘀𝗶𝗰𝗮𝗹 𝗦𝗼𝘂𝗿𝗰𝗲 ⊻.</p>
+						<blockquote><b>Герой иконки:</b> Игорь Подгайный — херсонский геймдев</blockquote>
+					</article>
+				</li>
+				<li>
+					<div class="imageWrapper">
+						<img src="media/people/hd_rustamsvetitel.png">
+					</div>
+					<div class="midBreak">&nbsp;</div>
+					<article>
+						<h4>Просветитель</h4>
+						<p>Благодаря <b>Просветителям</b> вы точно знаете подробности о каждой исследуемой сообществом личности. Написание постов, создание видеороликов и в целом продвижение знаний ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ в массы — работа Просветителей.</p>
+						<blockquote><b>Герой иконки:</b> Рустам Давлетшин — геймдев далёкого 2012</blockquote>
+					</article>
+				</li>
+				<li>
+					<div class="imageWrapper">
+						<img src="media/people/hd_razuefbotchick.png">
+					</div>
+					<div class="midBreak">&nbsp;</div>
+					<article>
+						<h4>Разработчик</h4>
+						<p>В нашем сообществе высоко ценятся креативные люди, но особенно — <b>Разработчики</b>.</p>
+						<p>Авторов полезных инструментов, оригинальных проектов или даже целых <b>песочниц</b>, которые можно безошибочно разместить в перечне существующих проектов, принято называть этим творческим титулом.</p>
+						<blockquote><b>Герой иконки:</b> Уэф — «Кин-дза-дза!»</blockquote>
+					</article>
+				</li>
+				<li>
+					<div class="imageWrapper">
+						<img src="media/people/hd_neogent.png">
+					</div>
+					<div class="midBreak">&nbsp;</div>
+					<article>
+						<h4>Агент</h4>
+						<p><b>Оперативные единицы</b> ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ, всегда готовые целым коллективом зайти и поднять активность в группах, интересующих Детективов, или даже в сообществах <b>будущих партнёров</b>.</p>
+						<p>Агентом может стать кто угодно: главное — иметь минимальные дипломатические навыки и, конечно, харизму <span class="inline"><img src="media/E-Sigma.png"></span>.</p>
+						<blockquote><b>Герой иконки:</b> Нео — «Матрица» (маскот MATRIX GAMES)</blockquote>
+					</article>
+				</li>
+			</ul>
+			<div class="MemberCard WindStorm">
+				<div class="MemberTop">
+					<video src="media/people/Avatar_WindStorm.mp4" autoplay muted loop></video>
+					<span class="MemberName">WindStorm</span>
+				</div>
+				<div class="MemberRole dark">
+					<r-d></r-d>
+					<r-e></r-e>
+					<r-a></r-a>
+					<r-ag></r-ag>
+				</div>
+				<article class="MemberDescription">
+					<p>Технический владелец ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ, благодаря своему составу несущего заслуженное звание одного из наиболее активных достоверных источников в сфере мобильных физических песочниц, <i>ну, и автор этого сайта</i>.</p>
+					<p><i>На самом деле, заслуга быть основателем исследовательного сообщества не несёт особой почести.</i> Другое дело — работа, гордость которой свойственна как Виндшторму, так и каждому активному сообщнику ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ — труд <b>Детектива</b>. Виндшторм владеет, пожалуй, наиболее <b>эффективными методами поиска</b> информации в сети.</p>
+					<p>Архивация контента и изложение эксклюзивных новостей в ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ — основной долг Виндшторма в сообществе. Большая часть информации, которая находится составом нашего коллектива, представляется в своём лучшем доступном виде именно благодаря его работе.</p>
+				</article>
+			</div>
+			<div class="MemberCard EgorRoge">
+				<div class="MemberTop">
+					<img src="media/people/Avatar-EgorRoge.png">
+					<span class="MemberName">Егор Роге</span>
+				</div>
+				<div class="MemberRole dark">
+					<r-d></r-d>
+					<r-a></r-a>
+					<r-e></r-e>
+					<r-dev></r-dev>
+					<r-ag></r-ag>
+				</div>
+				<article class="MemberDescription">
+					<p>Ведущий Детектив ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ, декомпилировавший не менее <b>10 песочниц</b>, нашедший минимум <b>15</b> ресурсов с контактами или информацией об их авторах и расследовавший сотни мегабайт информации о физическом геймдеве <b>в целом</b>.</p>
+					<p>Является владельцем проекта <b>XON Archive</b>. Помимо глубокого исследования песочниц XonStudio Егор занимался <b>модификацией Hypper</b> и передал эту технику Богдану Гвоздову.<p>
+					<p>Стоит упомянуть и его опыт в <b>разработке похожих песочниц</b> — уникальный проект <b>QBox: Sandbox</b> появился на свет именно благодаря Егору. <i>И ведь он тоже уроженец Херсона!</i></p>
+				</article>
+			</div>
+			<div class="MemberCard EgorKanopanov">
+				<div class="MemberTop">
+					<img src="media/people/Avatar-Kanopanov.png">
+					<span class="MemberName">Егор Канопанов</span>
+				</div>
+				<div class="MemberRole dark">
+					<r-d></r-d>
+					<r-e></r-e>
+					<r-ag></r-ag>
+				</div>
+				<article class="MemberDescription">
+					<p>Детектив, наполнивший архивы ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ <b>немалым обилием</b> контента для изучения.</p>
+					<p>Так, Егор Канопанов здорово помог сообществу с исследованием связи XonStudio с EclipseCorp, а также помог с получением <b>непубличного демо</b> песочницы Terrain Box.</p>
+					<p>Помимо работы над поиском информации, Егор максимально активно её продвигает в открытых источниках. <b>Не менее 3</b> полнометражных видео Канопанова на YouTube посвящены собственным успехам и достижениям ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ.</p>
+				</article>
+			</div>
+			<div class="MemberCard BogdanGvozdov">
+				<div class="MemberTop">
+					<img src="media/people/Avatar-Bogdan.gif">
+					<span class="MemberName">Богдан Гвоздов</span>
+				</div>
+				<div class="MemberRole">
+					<r-a></r-a>
+					<r-e></r-e>
+					<r-dev></r-dev>
+				</div>
+				<article class="MemberDescription">
+					<p>Наследник технологической мудрости ЕгораРоге. Под авторством Богдана Гвоздова отмечены его архивные проекты <b>QBoxArchive</b> и <b>Архив по Hϟpper Sandbox</b>.</p>
+					<p>Работает над модификацией <b>Hypper</b> и уже издал XON-, PRIV-, DEV- и LITE-версии установщиков песочницы. Не остаётся в стороне, когда требуется помощь в декомпиляции.</p>
+					<p>Хотя главный архивист ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ и не занимается интернет-расследованиями, он преподнёс для их продвижения бесценный инструмент <b>Aurora Store</b>, позволивший восстановить версии песочниц, ранее <b>считавшиеся утерянными</b>.</p>
+				</article>
+			</div>
+			<div class="MemberCard Asperger">
+				<div class="MemberTop">
+					<img src="media/people/Avatar-Asperger.png">
+					<span class="MemberName">ASP 7760</span>
+				</div>
+				<div class="MemberRole">
+					<r-dev></r-dev>
+					<r-ag></r-ag>
+				</div>
+				<article class="MemberDescription">
+					<p>Верный Агент сообщества, активно участвующий в его жизни в целом. Посвящается первым почти в каждую новость об успехах ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ и сам поддерживает их достижение.</p>
+					<p>Асп надёжно помогает с <b>техническими задачами</b> и программными мелочами. Помимо всех заслуг вне группы сообщества, был и на <b>посту модератора</b> Дискуссионного бюро.</p>
+				</article>
+			</div>
+			<div class="MemberCard TheTrayler">
+				<div class="MemberTop">
+					<img src="media/people/Avatar_TheTrayler.png">
+					<span class="MemberName"><span class="Upper">THE</span> <span>TRAYLER</span></span>
+				</div>
+				<div class="MemberRole">
+					<r-dev></r-dev>
+					<r-ag></r-ag>
+				</div>
+				<article class="MemberDescription">
+					<p>Один из наиболее активных Агентов ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ, а также скромный автор <i>пока только демонстрационной</i> песочницы <b>FAB</b>.</p>
+				</article>
+			</div>
+		</main>
+	</div>
+	</div> <!-- отбраковщик -->
+	<!-- сноска -->
+	<div class="project-footer">
+		<span class="nospace">ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ</span> ⚎ © 2026
+	</div>
+
+	<script>
+		// inner
+
+		// Менюш
+		const sidebar = document.getElementById('sidebar');
+		const overlay = document.getElementById('overlay');
+
+		function toggleMenu() {
+			const isOpen = sidebar.classList.contains('open');
+			if (!isOpen) {
+				sidebar.classList.add('open');
+				document.body.classList.add('menu-open');
+				overlay.classList.add('active');
+				sidebar.classList.add('animating');
+			} else {
+				sidebar.classList.remove('open');
+				document.body.classList.remove('menu-open');
+				overlay.classList.remove('active');
+			}
+		}
+
+		const navLinks = document.querySelectorAll('.nav-link');
+		navLinks.forEach(link => {
+			link.style.cursor = 'pointer';
+			link.addEventListener('click', (e) => {
+				if (link.getAttribute('href') === '#') {
+					e.preventDefault(); // gundone
+				}
+
+				if (window.innerWidth <= 1024) {
+					toggleMenu();
+				}
+			});
+		});
+		
+		sidebar.addEventListener('animationend', (e) => {
+			if (e.animationName === 'scan') {
+				sidebar.classList.remove('animating');
+			}
+		});
+
+		// фича под esc, это мне уже нейросеть подарила
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+				toggleMenu();
+		}});
+		
+		function fontsize() {
+			let parent = document.querySelector('.main-content');
+			let text = document.querySelector('.main-content h1');
+			let wtitle = parent.offsetWidth
+  			text.style.fontSize = wtitle/8 + "px";
+		}
+		
+		window.onload = fontsize;
+		window.onresize = fontsize;
+		window.addEventListener('load', function () {
+			setTimeout(() => {
+				document.querySelector('.loadPatch').classList.add('done');
+				const bashka = document.querySelector('.oldLoader');
+				bashka.classList.add('done');
+				// Этот черт перехватывает href
+				setTimeout(()=>bashka.remove(),1000);
+			}, 1000);
+		});
+		
+		// аутер
+		class role1 extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<div class="RoleObject detective"><img src="media/people/vladektiv.png"><span>Детектив</span></div>'
+			}
+		}
+		class role2 extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<div class="RoleObject informer"><img src="media/people/nikinformator.png"><span>Информатор</span></div>'
+			}
+		}
+		class role3 extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<div class="RoleObject archivist"><img src="media/people/igorivist.png"><span>Архивист</span></div>'
+			}
+		}
+		class role4 extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<div class="RoleObject educator"><img src="media/people/rustamsvetitel.png"><span>Просветитель</span></div>'
+			}
+		}
+		class role5 extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<div class="RoleObject developer"><img src="media/people/razuefbotchick.png"><span>Разработчик</span></div>'
+			}
+		}
+		class role6 extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<div class="RoleObject agent"><img src="media/people/neogent.png"><span>Агент</span></div>'
+			}
+		}
+		class role7 extends HTMLElement {
+			connectedCallback() {
+				// img src
+				this.innerHTML = '<div class="RoleObject defender"><img src="media/people/template.png"><span>Страж</span></div>'
+			}
+		}
+		
+		customElements.define("r-d", role1);
+		customElements.define("r-i", role2);
+		customElements.define("r-a", role3);
+		customElements.define("r-e", role4);
+		customElements.define("r-dev", role5);
+		customElements.define("r-ag", role6);
+		customElements.define("r-def", role7);
+	</script>
+</body>
+</html>

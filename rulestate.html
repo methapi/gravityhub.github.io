@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/png" href="media/icon.png" />
+	<link rel="stylesheet" href="globalAsset.css">
+	<meta name='color-scheme' content='only light'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Gravity Hub — Правила</title>
+	
+	<style>
+	/* дополнительные стили */
+	.marks {
+		min-width: 24px;
+		height: 24px;
+		margin-right: 5px;
+		display: flex;
+		background: #FFFFFF15;
+		border: 1px solid #FFFFFF30;
+		border-radius: 4px /*globalAsset.css*/;
+		align-items: center;
+		justify-content: center;
+		padding: 1px 3px 1px 3px;
+	}
+	.marks svg, .marks img {
+		width: 20px;
+		height: 20px;
+	}
+	.rulestate {
+		display: block;
+		background: #FFFFFF15;
+		border: 1px solid #FFFFFF30;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		border-radius: var(--border-radius) /*globalAsset.css*/;
+		padding: 6px 5px 6px 5px;
+	}
+	.rulestate li {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	.rulestate li:not(:last-child) {
+		margin-bottom: 5px;
+	}
+	.rulestate li .linum {
+		font-family: CCUltimatum;
+		top: 2px;
+		margin-right: 5px;
+		position: relative;
+	}
+	
+	.rulestate li .par {
+		display: flex;
+		position: relative;
+		margin-right: 9px;
+	}
+	.rulestate li .rule {
+		position: relative;
+		align-items: center;
+		text-indent: 10px;
+		font-size: 15px;
+		hyphens: auto;
+	}
+	.rulestate li .rule::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: -6px;
+		height: 85%;
+		width: 1px;
+		background: #FFFFFF90;
+	}
+
+	article {
+		text-indent: var(--default-text-indent);
+		hyphens: auto;
+	}
+	.divider-1 {
+		left: 50%;
+		transform: translateX(-50%);
+		position: relative;
+		display: block;
+		width: 100%;
+		height: 2px;
+		background: linear-gradient(90deg, #A2F4BC80 0%, #64F491 50%, #A2F4BC80 100%);
+		border-radius: 10px /*а-ля будет полезно*/;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.tech-info {
+		display: block;
+		background: linear-gradient(to bottom, #000000DD, #00000030);
+		padding: 6px 5px 6px 5px;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		line-height: 1.25;
+		border: solid 1px #181F1D;
+		border-radius: var(--border-radius);
+		text-indent: 0;
+		font-family: ShareTech;
+	}
+	.tech-info .code {
+		font-family: ShareTech;
+		color: #B2EEEB;
+	}
+	.tech-info svg {
+		position: relative;
+		width: 16px;
+		height: 16px;
+		top: 2px;
+	}
+
+	p:not(:last-child) {
+		margin-bottom: 10px;
+	}
+	.content-list {
+		display: flex;
+		flex-direction: column;
+		width: 90%;
+		padding: 10px 0;
+		background: #A7FFDA60;
+		border-radius: var(--border-radius);
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	.content-list li {
+		position: relative;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		height: 30px;
+		background: linear-gradient(to right, #2E6C53 5px, #A6FFDB90 5.1px, #A6FFDB10 60%);
+		padding-left: 10px;
+		transition: padding-left var(--transition-speed) cubic-bezier(0.1, 1, 0.51, 0.99);
+		-webkit-tap-highlight-color: #00261C12;
+	}
+	.content-list li.formods {
+		background: linear-gradient(to right, #6C672E 5px, #FFE7A690 5.1px, #887A4D 60%);
+		-webkit-tap-highlight-color: #24260012;
+	}
+	.content-list li.rules {
+		background: linear-gradient(to right, #6C2E2E 5px, #FFA6AF90 5.1px, #8E4A48 60%);
+		-webkit-tap-highlight-color: #26000412;
+	}
+	.content-list li.special {
+		background: linear-gradient(to right, #2E466C 5px, #A6C5FF90 5.1px, #48708E 60%);
+		-webkit-tap-highlight-color: #00112612;
+	}
+	.content-list li a {
+		text-decoration: none;
+		color: var(--text-main);
+		font-family: ShareTech;
+		font-size: 22px;
+		letter-spacing: -1px;
+		transition: letter-spacing 0.4s ease-in-out;
+	}
+	.content-list li:active {
+		padding-left: 20px;
+	}
+	.content-list li:active a {
+		letter-spacing: 0px;
+	}
+	.content-list li:not(:last-child)::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: -2px;
+		width: 100%;
+		height: 3px;
+		background: radial-gradient(circle, #A6FFDB90 2px, transparent 2px) 0 100% / 10px 3px repeat-x; /*страшно*/
+		mask-image: linear-gradient(to right, #00000050, black);
+	}
+	.content-list li::after {
+		content: "";
+		display: block;
+		width: 16px;
+		height: 16px;
+		margin-left: auto;
+		margin-right: 15px;
+		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23E2FFF2' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 12h16m-7-7l7 7l-7 7'/%3E%3C/svg%3E") no-repeat center / contain;
+		transition: transform var(--transition-speed) cubic-bezier(0.1, 1, 0.51, 0.99);
+	}
+	.content-list li:active::after {
+		transform: translateX(5px) scale(0.8);
+	}
+	.others {
+		margin-top: 5px;
+		margin-bottom: 5px;
+		position: relative;
+		display: block;
+		background: linear-gradient(to right, #B6FFE055 2px, transparent 3px);
+	}
+	.others li {
+		list-style-type: none;
+		margin-left: 20px;
+		text-indent: 20px;
+		margin-bottom: 10px;
+	}
+	.marker-list {
+		margin-top: 5px;
+		margin-bottom: 5px;
+		position: relative;
+	}
+	.marker-list li {
+		list-style: none;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		background: #FFFFFF15;
+		border: 1px solid #FFFFFF30;
+		margin-top: 5px;
+		margin-bottom: 10px;
+		border-radius: var(--border-radius) /*globalAsset.css*/;
+		padding: 6px 5px 6px 5px;
+		box-shadow: 0 5px 4px #00000080;
+	}
+	.marker-list svg {
+		margin-left: 10px;
+		margin-right: 10px;
+		width: 30px;
+		height: 30px;
+	}
+	summary {
+		list-style: none;
+		position: relative;
+		width: 80%;
+		height: 30px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: block;
+		background: #FFFFFF15;
+		box-shadow: 0 5px 10px #00000080;
+		border-bottom: 1px solid #FFFFFF30;
+		border-radius: 3px;
+		padding-left: 5px;
+		margin-left: 0;
+		margin-bottom: 10px;
+		margin-top: 10px;
+		text-align: center;
+	}
+	summary.under {
+		transform: translateX(-50%);
+		width: 70%;
+		height: 25px;
+	}
+	summary::-webkit-details-marker /*а толку?*/ {
+		display: none;
+	}
+	summary .name {
+		top: 2px;
+		font-family: ShareTech;
+		font-size: 22px;
+		letter-spacing: -1px;
+		position: relative;
+	}
+	summary.under .name {
+		font-size: 19px;
+		top: 1px;
+	}
+	summary .linum {
+		font-family: CCUltimatum;
+		font-size: 14px;
+		position: absolute;
+		left: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	summary::before {
+		content: "";
+		display: block;
+		width: 18px;
+		height: 18px;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 7.25px;
+		background: #FFFFFF15;
+		border: 1px solid #FFFFFF30;
+		border-radius: 2px;
+	}
+	summary::after {
+		content: "";
+		display: block;
+		width: 14px;
+		height: 14px;
+		position: absolute;
+		top: 50%;
+		right: 10px;
+		transform: translateY(-50%) rotate(0deg) scaleY(1);
+		transform-origin: center;
+		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath d='M24 0v24H0V0zM12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036c-.01-.003-.019 0-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z'/%3E%3Cpath fill='%23EAFFF3' d='M16.95 15.297a1 1 0 0 0-1.415 0L13 17.833V9a1 1 0 0 0-2 0v8.833l-2.536-2.536a1 1 0 0 0-1.414 1.415l4.243 4.242a1 1 0 0 0 1.414 0l4.243-4.242a1 1 0 0 0 0-1.415M5 3a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+	}
+	summary.flipF::after {
+		transform: translateY(-50%) rotate(180deg) scaleY(1);
+		animation: fliplist var(--transition-speed) ease-in-out normal;
+	}
+	summary.flipB::after {
+		transform: translateY(-50%) rotate(0deg) scaleY(1);
+		animation: fliplist var(--transition-speed) ease-in-out reverse;
+	}
+	@keyframes fliplist {
+		0% { transform: translateY(-50%) rotate(0deg) scaleY(1); }
+		49.5% { transform: translateY(-50%) rotate(0deg) scaleY(0.1) }
+		50% { transform: translateY(-50%) rotate(180deg) scaleY(0.1) }
+		100% { transform: translateY(-50%) rotate(180deg) scaleY(1); }
+	}
+	</style>
+</head>
+<body>
+	<!-- Фон -->
+	<div class="background-canvas">
+		<div class="bg-shape shape-1"></div>
+		<div class="bg-shape shape-2"></div>
+		<div class="bg-shape shape-3"></div>
+	</div>
+	<button class="menu-toggle" onclick="toggleMenu()" aria-label="Открыть меню">
+		<svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+	</button>
+	<div class="oldLoader">&nbsp;</div>  <!--загрузсие-->
+
+	<div class="wrapper">
+		<!-- вм -->
+		<aside class="sidebar" id="sidebar">
+			<div class="sidebar-header">
+				<h2>GRAVITY HUB</h2>
+			</div>
+			<nav>
+				<ul class="nav-list">
+					<li class="nav-item">
+						<a href="index.html" class="nav-link pinned">
+							<span class="nav-icon">
+								<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+							</span>
+							<span class="title">О проекте</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="people.html" class="nav-link">
+							<span class="nav-icon">
+								<svg width="800px" height="800px" viewBox="0 0 24 24"><g id="GravityHub-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="User" transform="translate(-384, -48)" fill-rule="nonzero"><g id="verifZ" transform="translate(384, 48)"><path d="M24,0 L24,24 L0,24 L0,0 L24,0 Z M12.5934901,23.257841 L12.5819402,23.2595131 L12.5108777,23.2950439 L12.4918791,23.2987469 L12.4918791,23.2987469 L12.4767152,23.2950439 L12.4056548,23.2595131 C12.3958229,23.2563662 12.3870493,23.2590235 12.3821421,23.2649074 L12.3780323,23.275831 L12.360941,23.7031097 L12.3658947,23.7234994 L12.3769048,23.7357139 L12.4804777,23.8096931 L12.4953491,23.8136134 L12.4953491,23.8136134 L12.5071152,23.8096931 L12.6106902,23.7357139 L12.6232938,23.7196733 L12.6232938,23.7196733 L12.6266527,23.7031097 L12.609561,23.275831 C12.6075724,23.2657013 12.6010112,23.2592993 12.5934901,23.257841 L12.5934901,23.257841 Z M12.8583906,23.1452862 L12.8445485,23.1473072 L12.6598443,23.2396597 L12.6498822,23.2499052 L12.6498822,23.2499052 L12.6471943,23.2611114 L12.6650943,23.6906389 L12.6699349,23.7034178 L12.6699349,23.7034178 L12.678386,23.7104931 L12.8793402,23.8032389 C12.8914285,23.8068999 12.9022333,23.8029875 12.9078286,23.7952264 L12.9118235,23.7811639 L12.8776777,23.1665331 C12.8752882,23.1545897 12.8674102,23.1470016 12.8583906,23.1452862 L12.8583906,23.1452862 Z M12.1430473,23.1473072 C12.1332178,23.1423925 12.1221763,23.1452606 12.1156365,23.1525954 L12.1099173,23.1665331 L12.0757714,23.7811639 C12.0751323,23.7926639 12.0828099,23.8018602 12.0926481,23.8045676 L12.108256,23.8032389 L12.3092106,23.7104931 L12.3186497,23.7024347 L12.3186497,23.7024347 L12.3225043,23.6906389 L12.340401,23.2611114 L12.337245,23.2485176 L12.337245,23.2485176 L12.3277531,23.2396597 L12.1430473,23.1473072 Z" id="MingCute" fill-rule="nonzero"></path><path d="M16,14 C18.7614,14 21,16.2386 21,19 L21,20 C21,21.1046 20.1046,22 19,22 L5,22 C3.89543,22 3,21.1046 3,20 L3,19 C3,16.2386 5.23858,14 8,14 L16,14 Z M21.4141,9.08134 C21.8047,8.69082 22.4378,8.69082 22.8284,9.08134 C23.1888615,9.44182923 23.2165893,10.0090309 22.9115834,10.4013771 L22.8284,10.4956 L19.9999,13.324 C19.6394385,13.6844615 19.0721793,13.7121893 18.6799027,13.4071834 L18.5857,13.324 L17.1715,11.9098 C16.781,11.5192 16.781,10.8861 17.1715,10.4956 C17.5319615,10.1350462 18.0992207,10.1073112 18.4914973,10.4123953 L18.5857,10.4956 L19.2928,11.2027 L21.4141,9.08134 Z M12,2 C14.7614,2 17,4.23858 17,7 C17,9.76142 14.7614,12 12,12 C9.23858,12 7,9.76142 7,7 C7,4.23858 9.23858,2 12,2 Z" id="GravityHub-2" fill="currentColor"></path></g></g></g></svg>							</span>
+							<span class="title">Гордость сообщества</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="nav-link active">
+							<span class="nav-icon">
+								<svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 0 .5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 2h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 4h10a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 6h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2A.5.5 0 0 1 .5 8h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-13 2a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/></svg>
+							</span>
+							<span class="title">Регламент и партнёрство</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="info.html" class="nav-link">
+							<span class="nav-icon">
+								<svg width="16px" height="16px" viewBox="0 0 22 22"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Dribbble-Light-Preview" transform="translate(-141, -8079)" fill="currentColor"><g id="icons" transform="translate(56, 160)"><path d="M97,7933 L92,7933 C91.448,7933 91,7932.552 91,7932 L91,7926 C91,7925.448 91.448,7925 92,7925 L96,7925 C96.552,7925 97,7925.448 97,7926 L97,7933 Z M97,7923 L91,7923 C89.896,7923 89,7923.895 89,7925 L89,7933 C89,7934.105 89.896,7935 91,7935 L101,7935 C102.104,7935 103,7934.105 103,7933 L103,7921 C103,7919.895 102.104,7919 101,7919 L87,7919 C85.896,7919 85,7919.895 85,7921 L85,7937 C85,7938.105 85.896,7939 87,7939 L102,7939 C102.552,7939 103,7938.552 103,7938 C103,7937.448 102.552,7937 102,7937 L88,7937 C87.448,7937 87,7936.552 87,7936 L87,7922 C87,7921.448 87.448,7921 88,7921 L100,7921 C100.552,7921 101,7921.448 101,7922 L101,7932 C101,7932.552 100.552,7933 100,7933 L99,7933 L99,7925 C99,7923.895 98.104,7923 97,7923 L97,7923 Z" id="at_sign"></path></g></g></g></svg>
+							</span>
+							<span class="title">Контакты и АП</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+
+	<div class="loadPatch">
+	<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+		<!--КОНТЕНТ -->
+		<main class="main-content">
+			<h1>Регламент форума</h1>
+			<div class="content-card">
+				<article class="tech-info">
+					<p>Номер издания D-M-Y: <span class="code" data-json="rulestateID"></span>.</p>
+					<p>Положение о настоящих правилах форума ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ в Telegram.</p>
+				</article>
+				<article>
+					<p>Здесь содержатся все положения, необходимые к прочтению участниками сообщества и соглашению с правилами, указанными ниже.</p>
+					<p>Положение — это лишь документ, который стремится поддерживать максимально чёткую систему модерации, а также обеспечивает понимание Участниками базовых критериев приятного и безопасного общения, а также норм поведения в Группе. На деле, соблюдение правил — это сугубо <b>Ваше представление</b> о приемлемом поддержании беседы в ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ, поэтому древо запрещённых и разрешённых случаев <b>не заканчивается</b> одним только перечнем правил Группы.</p>
+					<p>Находите лучшие идеи для беседы. Будьте вежливы ко всем и всегда.</p>
+					<p>В свод правил могут вноситься изменения, в курсе которых должны быть все активные участники форума. Обновление или непрочтение правил <b>не освобождает</b> вас от ответственности и понесения Наказания. Если вы усомнились в обоснованности Наказания, прежде <b>перечитайте</b> этот документ. В случае, если выдача Наказания оказывается несправедливой, <b>подайте апелляцию</b>, написав в личный чат выдавшего Наказание Администратора.</p>
+					<p>Если участник хоть раз заходил на форум ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ с «левого» аккаунта, Администрации об этом становится известно <b>сразу</b>. Поэтому, при попытке обойти Наказание, аккаунт-твинк Правонарушителя получает <b>перманентный бан</b>.</p>
+				</article><div class="divider-1"></div>
+				<h3>Содержание</h3>
+				<ul class="content-list">
+					<li><a href="#sec-1">Терминология</a></li>
+					<li><a href="#sec-2">Маркеры</a></li>
+					<li class="formods"><a href="#sec-3">Критерии модерации</a></li>
+					<li class="rules"><a href="#sec-4">Правила беседы</a></li>
+					<li class="rules"><a href="#sec-5">О размещении ботов</li></li>
+					<li class="special"><a href="#sec-6">О сотрудничестве</a></li>
+				</ul><br>
+				<h3 id="sec-1">Терминология</h3>
+				<article>В файле содержатся следующие термины:</article>
+				<ul class="others"><li><b>Положение</b> — настоящий свод правил форума ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ.</li>
+					<li><b>Группа</b> — форум ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ, в которой действуют данные правила.</li>
+					<li><b>Участник</b> — лицо, состоящее в Группе. Не зависит от административной и/или трудовой роли.</li>
+					<li><b>Администратор</b> <i>(Администрация, Модератор)</i> — уполномоченное лицо, модерирующее контент и беседу в Группе, т.е. совершающее различные манипуляции для предотвращения нарушений Положения.</li>
+					<li><b>Правонарушитель</b> — Участник, нарушающий настоящие правила Группы.</li>
+					<li><b>Варн</b> — временное предупреждение о нарушении, сопровождающееся удалением сообщения с Нарушением. <b>Стандартная длительность</b> Варна — <i><b>1 неделя</b></i>; при повторном нарушении соответствующих пунктов Положения выдаётся Варн длительностью в <i><b>1 месяц</b></i>.
+					<article>По достижению <b>6</b> Варнов Правонарушитель автоматически заносится в чёрный список Группы на срок <i><b>2 месяцев</b></i>.</article></li>
+					<li><b>Мут</b> — временное исключение возможности Правонарушителя отправлять сообщения в Группу.<li>
+					<li><b>Бан</b> — временное или бессрочное исключение Правонарушителя из Группы без возможности просмотра контента в Группе и её повторного посещения.</li>
+					<li><b>Ситуация</b> — субъективный случай, в котором выявляются правонарушения и их степень.</li>
+					<li><b>Наказание</b> — определяемое степенью правонарушения наложение ограничений <i>(Варна, Бана или Мута)</i> на возможности Правонарушителя.</li>
+					<li><b>Нарушение</b> — случай, в котором выявлено правонарушение.</li>
+					<li><b>Владелец</b> — ответственный владелец Группы, имеющий полный контроль над ней, содержанием Положения и способный на отклонение Наказаний.</li>
+				</ul>
+				<h3 id="sec-2">Маркеры</h3>
+				<article>Ниже представлен смысл маркеров, которыми отмечено большинство пунктов Положения.</article>
+				<ul class="marker-list">
+					<li><i-cd></i-cd><span>Наказание, связанное с пунктом, помеченным этим обозначением, <b>можно отклонять</b>.</span></li>
+					<li><i-md></i-md><span>Наказание, связанное с пунктом, помеченным этим обозначением, <i>не рекомендуется</i>, но и <b>не запрещается отклонять</b>.</span></li>
+					<li><i-sd></i-sd><span>Наказание, связанное с пунктом, помеченным этим обозначением, <b>крайне нежелательно отклонять</b>.</span></li>
+					<li><i-dd></i-dd><span>Наказание, связанное с пунктом, помеченным этим обозначением, <b>НЕЛЬЗЯ отклонять</b>.</span></li>
+					<li><i-nr></i-nr><span>Администраторы <b>не имеют права</b> отклонить Наказание, связанное с пунктом, помеченным этим обозначением. Это свойство отличается от предыдущего <b>большей ответственностью</b> за игнорирование Нарушения.</span></li>
+				</ul>
+				<h3 id="sec-3">Критерии модерации</h3>
+				<ul class="others">
+					<li><article>Администрации важно учитывать <b>контекст</b> беседы. Нарушение, применяемое по отношению к Участнику, карается соответственно установкам Положения, если <b>подходит к контексту</b> Ситуации.</article></li>
+					<li><article>Наказание, относящееся к одному конкретному пункту <i>(например, оскорбление два раза подряд)</i>, применяется <b>единично <i>(один раз)</i></b> за Ситуацию. Если определить, к какой части беседы относится Нарушение, затруднительно, то рекомендуется продолжить выдавать Наказания спустя <b>30 минут</b> после выявления первого Нарушения.</article></li>
+					<li><article>Выдача Наказания <b>может быть отклонена Владельцем</b>. Если Владелец разрешает Участнику или Правонарушителю проигнорировать Нарушение, то Наказание может не быть выдано/не выдаваться в будущем <b><i>(в зависимости от решения Владельца)</i></b>. Ответственность за отклонение нарушения несёт <b>Владелец</b>. Администраторы, вследствие, <b>не будут иметь отношения</b> к решённой Владельцем Ситуации.</article></li>
+					<li><article>Участникам чата на роли Администратора крайне желательно отключить опцию <i><b>«Писать могут только участники Telegram Premium»</b></i>, чтобы к ним могли обратиться с аппеляцией.</article></li>
+				</ul>
+				<h3 id="sec-4">Правила беседы</h3>
+				<details open><summary><span class="linum">1.0</span><span class="name">Оскорбления</span></summary>
+					<ul class="rulestate">
+						<li><span class="par"><n-l>1.1</n-l><span class="marks"><i-cd></i-cd></span></span><span class="rule">Обращение к Участнику специфичным образом, не согласованным с этим Участником и/или несущим цель оскорбить его, <b>карается Варном</b>.</span></li>
+						<li><span class="par"><n-l>1.2</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Намеренное оскорбление Участника в любой форме карается <b>Варном</b>.</span></li>
+						<li><span class="par"><n-l>1.3</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Оскорбление Участника с целью самозащиты в конфликтной Ситуации является <i>нежелательным</i> и <b>в любом случае</b> карается <b>Варном</b>.</span></li>
+						<li><span class="par"><n-l>1.4</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Оскорбление знакомых Собеседника карается Варном аналогично, как если бы Нарушение применялось к ним напрямую.</span></li>
+						<li><span class="par"><n-l>1.5</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Оскорбление родственников, близких Участника <b>в любом ключе и форме</b> <i>(иронично или серьёзно, в письменном или медиаформате)</i> караются <b>Баном</b> на срок 2 месяцев.</span></li>
+						<li><span class="par"><n-l>1.6</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Оскорбления и преследование <b>в любом ключе и форме</b> <i>(иронично или серьёзно, в письменном или медиаформате)</i>, содержащие в себе насмешки над Участником, его физическим состоянием и положением, унижение, нацеленное на нанесение морального ущерба Собеседнику, караются <b>Варном</b> продолжительностью в 1 месяц <b>и Мутом</b> на срок 6 часов.</span></li>
+						<li><span class="par"><n-l>1.7</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Оскорбительные Telegram-реакции после выдачи Мута и негативные высказывания после выдачи любого другого Наказания <b>неприемлемы</b> и приводят к выдаче <b>Варна</b>.</span></li>
+					</ul>
+				</details>
+				<details open><summary><span class="linum">2.0</span><span class="name">Провокации</span></summary>
+					<details open><summary class="under"><span class="linum">2.1</span><span class="name">Общие провокации</span></summary>
+						<ul class="rulestate">
+							<li><span class="par"><n-l>2.1.1</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Пожелания негативного характера, <b>в том числе</b> неявные упоминания физического ущерба, караются <b>Варном</b> длительностью в 1 месяц.</span></li>
+							<li><span class="par"><n-l>2.1.2</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Повторное распространение ложной информации касаемо Участников и в целом Группы карается <b>Варном</b> длительностью в 1 месяц <b>и Мутом</b> на срок 24 часов.</span></li>
+							<li><span class="par"><n-l>2.1.3</n-l><span class="marks"><i-dd></i-dd></span></span><span class="rule">Попытка вызвать скорбь по близким, родственникам и другим знакомым Участника карается <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+							<li><span class="par"><n-l>2.1.4</n-l><span class="marks"><i-dd></i-dd></span></span><span class="rule">Насмешки, унижения, буллинг и прочее непристойное отношение к Участнику с целью серьёзно оскорбить его карается <b>Варном</b> на период 1 года <b>и Мутом</b> на срок 24 часов. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+							<li><span class="par"><n-l>2.1.5</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Относительное сравнение Участника со специфичным лицом, которое можно <i>контекстуально</i> расценить как оскорбление, карается <b>Варном</b>.</span></li>
+							<li><span class="par"><n-l>2.1.6</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Разжигание спора в негативном ключе или, в общем, ссоры карается <b>Варном</b> или <b>Мутом <i>на срок до 24 часов</i></b> в зависимости от Ситуации. Наказание получают <b>все</b> Правонарушители <i>(активные участники конфликта)</i>.</span></li>
+							<li><span class="par"><n-l>2.1.7</n-l><span class="marks"><i-cd></i-cd></span></span><span class="rule">Заявления о Группе и, в целом, её составе, провоцирующие её Администраторов и/или Участников, караются <b>Варном</b>.</span></li>
+							<li><span class="par"><n-l>2.1.8</n-l><span class="marks"><i-cd></i-cd></span></span><span class="rule">Использование провокационных принуждений Участника замолчать карается <b>Варном</b>.</span></li>
+						</ul>
+					</details>
+					
+					<details open><summary class="under"><span class="linum">2.2</span><span class="name">Угрозы</span></summary>
+						<ul class="rulestate">
+							<li><span class="par"><n-l>2.2.1</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Угрозы, включающие в себя <b>технические угрозы</b> <i>(например, угроза рейда Группы, сноса аккаунта Участника и т. п.)</i>, даже если они не относятся к Группе или Участнику напрямую, карается <b>Баном</b> на срок 2 месяцев <i>и не только</i>; повторное нарушение приводит к <b>бессрочному Бану</b>. Если Нарушение представляется <b>в контексте иронии</b>, оно карается <b>Варном</b> и <b>Мутом <i>на срок 6 часов</i></b>.</span></li>
+							<li><span class="par"><n-l>2.2.2</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Угроза распространения, передачи третьим лицам личной информации Участника карается <b>Баном</b> на срок 2 месяцев <i>и не только</i>. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+							<li><span class="par"><n-l>2.2.3</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Угрозы и пожелания Участнику тяжкого морального или физического ущерба, либо вовсе летального ущерба, карается <b>бессрочным Баном</b>. Если Нарушение представляется <b>в контексте иронии</b>, оно карается <b>Варном</b> продолжительностью в 1 месяц и <b>Мутом <i>на срок 16 часов</i></b>.</span></li>
+							<li><span class="par"><n-l>2.2.4</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Контент, <b>в любой форме</b> <i>(включая иронию)</i> содержащий призыв к самоубийству или причинению себе морального или физического ущерба, карается <b>Баном</b> на 2 месяца. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+							<li><span class="par"><n-l>2.2.5</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Угрозы взлома, спам-звонков, бомбера и в целом применения похожих мер по отношению к Участнику караются бессрочным Баном. Если Нарушение представляется в контексте иронии, оно карается <b>Варном</b> и <b>Мутом <i>на срок 6 часов</i></b>.</span></li>
+						</ul>
+					</details>
+					
+					<details open><summary class="under"><span class="linum">2.3</span><span class="name">Прочие провокации</span></summary>
+						<ul class="rulestate">
+							<li><span class="par"><n-l>2.3.1</n-l><span class="marks"><i-cd></i-cd></span></span><span class="rule">Многочисленное упоминание Участников, самолично или через ботов, с неприемлемыми или оскорбительными целями карается <b>Мутом</b> на срок 2 часов. Это правило <b>не касается</b> логики <b>развлекательных</b> возможностей ботов.</span></li>
+							<li><span class="par"><n-l>2.3.2</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Участник несёт ответственность за совершение Нарушения <b>в любом ключе</b> с помощью бота. Наказание выдаётся в соответствии с пунктом Положения, относящемуся к исполненному через бота Нарушению.</span></li>
+						</ul>
+					</details>
+				</details>
+				<details open><summary><span class="linum">3.0</span><span class="name">Конфиденциальность</span></summary>
+					<ul class="rulestate">
+						<li><span class="par"><n-l>3.1</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Раскрытие личной информации, IP-адреса, паролей, конфиденциальных данных об Участнике, его родственниках, близких и знакомых в Группе карается <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+						<li><span class="par"><n-l>3.2</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Распространение контактов, номеров телефона и средств связи, которые Участник пожелал скрывать, карается <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+						<li><span class="par"><n-l>3.3</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Распространение <b>личных</b> страниц, соцсетей Участника без его разрешения карается <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+						<article class="tech-info">
+							<p><i-w></i-w> <b>ВАЖНО</b>: Большинство нарушений, связанных с распространением конфиденциальной информации, караются не только Положением, но и <b>Уголовным</b> и/или <b>Административным Кодексом</b> вашего государства. Будьте законопослушными!</p>
+						</article>
+					</ul>
+				</details>
+				<details open><summary><span class="linum">4.0</span><span class="name">Оффтоп</span></summary>
+					<article class="tech-info">
+						<p><i-w></i-w> <b>P.S.</b>: В ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ равноценно порядку важен интерес диалога. Тепло приветствуются любые беседы, если они соответствуют интересам Участников, опыты, если они безопасны, и споры, если они объективны и ведутся исключительно для личного интереса Участников.</p>
+						<p>Отсюда — <b>всё</b>, что не несёт смысла, не привлекает интереса, не подходит под суть беседы, <b>может считаться оффтопом</b>.</p>
+						<p>Тем не менее, Нарушения правила, сформулированного в абзаце выше и, в частности, пункта 4.6 <b>могут быть проигнорированы</b>, если обнаруживаются в «<span class="inline"><img src="media/IkonkaTexnicheskogoPolygonaVFormate90Na91Piksel.png"></span> ⁅ ꔅ ⁆ - Техническом полигоне».</p>
+					</article>
+					<ul class="rulestate">
+						<li><span class="par"><n-l>4.1</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Флуд <i>(массовая отправка похожего или одинакового контента в Группу)</i> карается <b>Варном</b> и <b>Мутом <i>на срок 30 минут</i></b>. Повторное нарушение <b>не растягивает</b> срок <b>Варна</b>.</span></li>
+						<li><span class="par"><n-l>4.2</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Массовый спам ссылками, рекламой, рассылкой карается <b>Варном</b> на срок 1 года и <b>Мутом</b> на срок 24 часов.</span></li>
+						<li><span class="par"><n-l>4.3</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Отправка слишком длинных сообщений, затрудняющих просмотр беседы, карается <b>Варном</b>.</span></li>
+						<li><span class="par"><n-l>4.4</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Реклама групп или каналов, <b>не согласованная</b> с Администрацией, или распространение каких-либо ресурсов не с ознакомительной целью карается <b>Варном</b>. Ссылки на ресурсы, которые могут заинтересовать Детективов <i>(например, страницы проектов-песочниц или авторов, с которыми можно завязать сотрудничество)</i>, приветствуются.</span></li>
+						<li><span class="par"><n-l>4.5</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Представление <b>в любой форме</b> <i>(например, внутри стикера)</i> не согласованной с Администрацией, <b>нерелевантной</b> рекламы <i>(например, YouTube-каналов знакомых)</i> запрещено и приводит к <b>Варну</b>.</span></li>
+						<li><span class="par"><n-l>4.6</n-l><span class="marks"><i-cd></i-cd></span></span><span class="rule">Контент, <b>не несущий смысла</b> и при этом <b>не подходящий к Ситуации</b> <i>(в том числе — неподходящий юмор)</i>, либо контент, совершенно не относящийся к событиям в Группе или не интересующий Участников <i>(например, просьбы кого-либо снять ограничения в другой группе)</i>, наказывается <b>Варном</b>. Повторное нарушение <b>не растягивает</b> срок <b>Варна</b>.</span></li>
+						<li><span class="par"><n-l>4.7</n-l><span class="marks"><i-md></i-md></span></span><span class="rule">Использование команд <b>развлекательных</b> ботов вне темы «<span class="inline"><img src="media/IkonkaTexnicheskogoPolygonaVFormate90Na91Piksel.png"></span> ⁅ ꔅ ⁆ - Технический полигон» приводит к <b>Варну</b>.</span></li>
+					</ul>
+				</details>
+				<details open><summary><span class="linum">5.0</span><span class="name">Неприемлемый контент</span></summary>
+					<ul class="rulestate">
+						<li><span class="par"><n-l>5.1</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Распространение контента, содержащего в себе откровенные образы или ссылающегося на них с помощью соответствующего подтекста, карается <b>Варном</b>. Повторное нарушение приводит к выдаче <b>Варна</b> на срок 1 месяца и <b>Мута</b> на период 6 часов.</span></li>
+						<li><span class="par"><n-l>5.2</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Распространение медиафайлов с демонстрацией расчленения, насилия, применения огнестрельного оружия с целью причинения физического ущерба карается <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+						<li><span class="par"><n-l>5.3</n-l><span class="marks"><i-nr></i-nr></span></span><span class="rule">Распространение экстремистской литературы, пособий религиозных и неформальных сект <i>(иначе — вербовка)</i> карается <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+						<li><span class="par"><n-l>5.4</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Поддержка военных действий, агрессивные шутки на этот счёт караются <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+						<li><span class="par"><n-l>5.5</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Распространение фашизма, нацизма и прочих политических и социальных идеологий карается <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+						<li><span class="par"><n-l>5.6</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Оскорбления в отношении к национальностям, расам и странам карается <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+						<li><span class="par"><n-l>5.7</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Оскорбление, преследование, агрессия касаемо предмета религии, ирония по отношению к мировоззрению или его сторонникам карается <b>Баном</b> на срок 2 месяцев, а мелкие провокации пресекаются <b>Варном</b> на срок 1 месяца. Повторное нарушение приводит к <b>бессрочному Бану</b>. Выражение нейтральности, уважения чужой религии или поклонения собственной, <b>не содержащее</b> при этом любые провокационные высказывания, <b>не является</b> нарушением.</span></li>
+						<li><span class="par"><n-l>5.8</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule">Распространение и продажа вредоносного ПО <b>не в ознакомительных целях</b> и <b>без предупреждения</b> о его небезопасности карается <b>Баном</b> на срок 2 месяцев. Повторное нарушение приводит к <b>бессрочному Бану</b>.</span></li>
+						<li><span class="par"><n-l>5.9</n-l><span class="marks"><i-sd></i-sd></span></span><span class="rule"><b>Любой</b> медиаконтент, вызывающий отвращение или представляющий опасность слабонервным, карается <b>Варном</b> на период 1 месяца и <b>Мутом</b> на срок 16 часов. Повторное нарушение <b>растягивает</b> срок <b>Мута</b>.</span></li>
+					</ul>
+				</details>
+				
+				<h3 id="sec-5">О размещении ботов</h3>
+				<article>
+					<p>Поскольку творчество — одно из неотъемлемых направлений ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ, в Группу могут быть добавлены ваши <b>Telegram-боты</b> (далее — <i>Бот</i>) — как развлекательные, так и функциональные.</p>
+					<p>Запросить размещение бота на форуме может <b>любой Участник</b>. Однако необходимо помнить, что для их расположения в Группе <b>существуют правила</b>:</p>
+				</article>
+				<ul class="rulestate">
+					<li><span class="par"><n-l>B1</n-l><span class="marks"><i-b></i-b></span></span><span class="rule">Логика отправки сообщений Бота должна быть <b>оптимизирована</b>: не следует засорять топик одинаковыми или массово отправляемыми длинными ответами.</span></li>
+					<li><span class="par"><n-l>B2</n-l><span class="marks"><i-b></i-b></span></span><span class="rule">Бот не получает право игнорировать правила Положения <i>(1.0, 2.0, 3.0, 5.0)</i>. Ответственность за совершаемые Ботом Нарушения несёт его владелец.</span></li>
+					<li><span class="par"><n-l>B3</n-l><span class="marks"><i-b></i-b></span></span><span class="rule">Максимальные права, которые может получить Бот, это <b><i>закрепление</i></b> и <b><i>удаление</i></b> сообщений. Исключениями управляет владелец Группы, а ответственность за распоряжение правами Бота несёт владелец Бота.</span></li>
+					<li><span class="par"><n-l>B4</n-l><span class="marks"><i-b></i-b></span></span><span class="rule">В логике Бота должна быть предусмотрена блокировка команд вне «<span class="inline"><img src="media/IkonkaTexnicheskogoPolygonaVFormate90Na91Piksel.png"></span> ⁅ ꔅ ⁆ - Технического полигона» на основе пункта 4.7 Положения <i>(см. решение ниже)</i>.</span></li>
+				</ul>
+				<article>
+					<p>Это — все условия, которых нужно придерживаться, если вы располагаете своего Бота в ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ. Разрушительная активность Бота пресекается сразу и ограничивает его владельца в соответствии с пунктом 2.2.1 Положения.</p>
+					<p>Следует не забывать, что неактивные Боты исключаются из Группы по истечению <b>1 месяца</b>.</p>
+				</article>
+				<article class="tech-info">
+					<p>Если вы, что наиболее вероятно, разбираетесь в логике отправки сообщений Telegram-ботом, то знаете, что существует возможность отправлять сообщение в какую-либо <b>тему</b> форума.</p>
+					<p>Рекомендуется реализовывать отклик Бота через <b>reply</b> <i>(ответом по ID сообщения с командой)</i>. Это позволяет не утруждаться над распределением сообщений по топикам вручную.</p>
+					<p><b>Может понадобиться:</b></p>
+					<p>ID Группы: <span class="code">-1002086707022</span>;</p>
+					<p>ID темы Тех. полигона: <span class="code">54049</span>.</p>
+				</article>
+				<h3 id="sec-6">О сотрудничестве</h3>
+				<ariticle>
+					<p>Форум ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ делится эксклюзивной и достоверной информацией, которую получает из <b>внешних источников</b> усердным трудом Детективов, а также заручается в действительности особыми <b>инсайдами</b> от Информаторов.</p>
+					<p>Участники нашей Группы становятся тестировщиками как из личного интереса, так и с целью получить эксклюзивные новости от разработчиков активных проектов или спонсоров.</p>
+				</article>
+				<p><b>В наших интересах:</b></p>
+				<ul class="others">
+					<li><span class="inline"><img src="media/WNM-Comm.png"></span> <b>Сообщества</b>, которые ищут новинки и уникальный контент так же активно, как ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ.</li>
+					<li><span class="inline"><img src="media/WNM-SB.png"></span> <b>Проекты-песочницы</b>, инди-разработчики которых готовы делиться их прогрессом и итригами с ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ.</li>
+					<li><span class="inline"><img src="media/WNM-Exc.jpg"></span> <b>Эксклюзивные источники</b>, редакторы которых желают представлять ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ исключительные новости.</li>
+				</ul>
+				<p><b>Привилегии для коллег:</b></p>
+				<ul class="others">
+					<li><span class="inline"><img src="media/WGM-Exc.png"></span> Партнёры получают возможность <b>брать эксклюзивную информацию</b> из нашего форума и публиковать её на свой лад, не волнуясь о нарушении авторских прав.</li>
+					<li><span class="inline"><img src="media/WGM-Anon.png"></span> Личные данные инди-разработчиков, сотрудничающих с нами, защищаются ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ <i>(в разделе «<span class="inline"><img src="media/kartoteka.png"></span> ⁅ 𖥳 ⁆ - Картотека личностей» не будут опубликована информация даже из открытых источников)</i></li>
+				</ul>
+			</div>
+		</main>
+	</div>
+	</div> <!-- отбраковщик -->
+	<!-- сноска -->
+	<div class="project-footer">
+		<span class="nospace">ꗈ 𝗚𝗿𝝰𝘃𝗶𝘁𝘆 𝗛𝞄𝗯 ꗈ</span> ⚎ © 2026
+	</div>
+
+	<script>
+		// inner
+
+		// Менюш
+		const sidebar = document.getElementById('sidebar');
+		const overlay = document.getElementById('overlay');
+
+		function toggleMenu() {
+			const isOpen = sidebar.classList.contains('open');
+			if (!isOpen) {
+				sidebar.classList.add('open');
+				document.body.classList.add('menu-open');
+				overlay.classList.add('active');
+				sidebar.classList.add('animating');
+			} else {
+				sidebar.classList.remove('open');
+				document.body.classList.remove('menu-open');
+				overlay.classList.remove('active');
+			}
+		}
+
+		const navLinks = document.querySelectorAll('.nav-link');
+		navLinks.forEach(link => {
+			link.style.cursor = 'pointer';
+			link.addEventListener('click', (e) => {
+				if (link.getAttribute('href') === '#') {
+					e.preventDefault(); // gundone
+				}
+
+				if (window.innerWidth <= 1024) {
+					toggleMenu();
+				}
+			});
+		});
+		
+		sidebar.addEventListener('animationend', (e) => {
+			if (e.animationName === 'scan') {
+				sidebar.classList.remove('animating');
+			}
+		});
+
+		// фича под esc, это мне уже нейросеть подарила
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+				toggleMenu();
+		}});
+		
+		function fontsize() {
+			let parent = document.querySelector('.main-content');
+			let text = document.querySelector('.main-content h1');
+			let w = parent.offsetWidth;
+  			text.style.fontSize = w/8 + "px";
+		}
+		
+		window.onload = fontsize;
+		window.onresize = fontsize;
+		window.addEventListener('load', function () {
+			setTimeout(() => {
+				document.querySelector('.loadPatch').classList.add('done');
+				const bashka = document.querySelector('.oldLoader');
+				bashka.classList.add('done');
+				// Этот черт перехватывает href
+				setTimeout(()=>bashka.remove(),1000);
+			}, 1000);
+		});
+		
+		// outer
+
+		const contentLink = document.querySelectorAll('.content-list li');
+
+		// Иконки frulestate
+		class canDecline extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"><path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z" fill="#00E16A"/></svg>';
+			}
+		}
+		class mayDecline extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"><path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z" fill="#E3E3E3"/></svg>';
+			}
+		}
+		class shldntDecline extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<svg width="24px" height="24px" viewBox="-3 -3 38 38"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-206, -1037)" fill="#FFE57A"><path d="M226.95,1056.54 C227.34,1056.93 227.34,1057.56 226.95,1057.95 C226.559,1058.34 225.926,1058.34 225.536,1057.95 L222,1054.41 L218.464,1057.95 C218.074,1058.34 217.441,1058.34 217.05,1057.95 C216.66,1057.56 216.66,1056.93 217.05,1056.54 L220.586,1053 L217.05,1049.46 C216.66,1049.07 216.66,1048.44 217.05,1048.05 C217.441,1047.66 218.074,1047.66 218.464,1048.05 L222,1051.59 L225.536,1048.05 C225.926,1047.66 226.559,1047.66 226.95,1048.05 C227.34,1048.44 227.34,1049.07 226.95,1049.46 L223.414,1053 L226.95,1056.54 L226.95,1056.54 Z M234,1037 L210,1037 C207.791,1037 206,1038.79 206,1041 L206,1065 C206,1067.21 207.791,1069 210,1069 L234,1069 C236.209,1069 238,1067.21 238,1065 L238,1041 C238,1038.79 236.209,1037 234,1037 L234,1037 Z" id="cross-square" sketch:type="MSShapeGroup"></path></g></g></svg>';
+			}
+		}
+		class dontDecline extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<svg width="24px" height="24px" viewBox="-3 -3 38 38"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-206, -1037)" fill="#FF6370"><path d="M226.95,1056.54 C227.34,1056.93 227.34,1057.56 226.95,1057.95 C226.559,1058.34 225.926,1058.34 225.536,1057.95 L222,1054.41 L218.464,1057.95 C218.074,1058.34 217.441,1058.34 217.05,1057.95 C216.66,1057.56 216.66,1056.93 217.05,1056.54 L220.586,1053 L217.05,1049.46 C216.66,1049.07 216.66,1048.44 217.05,1048.05 C217.441,1047.66 218.074,1047.66 218.464,1048.05 L222,1051.59 L225.536,1048.05 C225.926,1047.66 226.559,1047.66 226.95,1048.05 C227.34,1048.44 227.34,1049.07 226.95,1049.46 L223.414,1053 L226.95,1056.54 L226.95,1056.54 Z M234,1037 L210,1037 C207.791,1037 206,1038.79 206,1041 L206,1065 C206,1067.21 207.791,1069 210,1069 L234,1069 C236.209,1069 238,1067.21 238,1065 L238,1041 C238,1038.79 236.209,1037 234,1037 L234,1037 Z" id="cross-square" sketch:type="MSShapeGroup"></path></g></g></svg>';
+			}
+		}
+		class noRights extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<svg width="24px" height="24px" viewBox="0 0 24 24"><path fill="#FF6370" d="M20.92 5.037a2.629 2.629 0 0 0-1.314-.966l-4.939-1.643a8.563 8.563 0 0 0-5.344 0L4.393 4.07a2.658 2.658 0 0 0-1.816 2.522v5.297a8.525 8.525 0 0 0 1.053 4.088a8.399 8.399 0 0 0 2.9 3.064l4.059 2.561a2.707 2.707 0 0 0 2.822 0l4.06-2.561a8.438 8.438 0 0 0 3.952-7.152V6.593a2.652 2.652 0 0 0-.502-1.556m-5.798 7.732a.967.967 0 1 1-1.363 1.373l-1.75-1.75l-1.73 1.74a.966.966 0 0 1-.686.28a.967.967 0 0 1-.686-1.653l1.74-1.73l-1.74-1.74a.97.97 0 0 1 1.373-1.372l1.73 1.74l1.749-1.75a.966.966 0 1 1 1.363 1.373l-1.74 1.75z"/></svg>';
+			}
+		}
+		class warnSign extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<svg width="24px" height="24px" viewBox="0 0 1000 1000"><path fill="#FFE57A" d="M921 733L591 162q-19-35-55-47t-72 0-55 47L79 733q-20 34-13 71t36 62 68 25h660q39 0 68-25t36-62-13-71zm-351 28q0 18-13 31t-31 13h-52q-18 0-31-13t-13-31v-44q0-18 13-30.5t31-12.5h51q19 0 32 12.5t13 30.5v44zm-11-181q0 19-12 31.5T517 624h-34q-18 0-30-12.5T441 580l-15-248q-1-17 14-30t34-13h52q19 0 34 13t14 30z"/></svg>';
+			}
+		}
+		class botSign extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = '<img src="media/kyle.png">';
+			}
+		}
+		class linum extends HTMLElement {
+			connectedCallback() {
+				this.innerHTML = `<span class="linum">${this.innerHTML}</span>`;
+			}
+		}
+		customElements.define("i-cd", canDecline);
+		customElements.define("i-md", mayDecline);
+		customElements.define("i-sd", shldntDecline);
+		customElements.define("i-dd", dontDecline);
+		customElements.define("i-nr", noRights);
+		customElements.define("i-w", warnSign);
+		customElements.define("n-l", linum);
+		customElements.define("i-b", botSign);
+
+		// Переменные
+		fetch("updatable/dynamicAsset.json")
+			.then(r => r.json())
+			.then(dynamicData => {
+				document.querySelectorAll("[data-json]").forEach(container => {
+					const key = container.dataset.json;
+					if (dynamicData[key]) container.textContent = dynamicData[key];
+				});
+			});
+
+		contentLink.forEach(item => {
+			item.style.cursor = "pointer";
+			item.addEventListener("mouseup", function(e) {
+				const attachedLink = this.querySelector("a");
+				if (attachedLink) {
+					const targetID = attachedLink.getAttribute("href");
+					const targetEl = document.querySelector(targetID);
+					
+					if (targetEl) {
+						targetEl.scrollIntoView({behavior: "smooth"});
+					}
+				}
+			});
+		});
+		
+		document.querySelectorAll("details").forEach(details => {
+			const summaryThing = details.querySelector("summary");
+			details.addEventListener("toggle", () => {
+				const curAnim = details.open ? "flipF" : "flipB";
+				summaryThing.classList.remove("flipF", "flipB");
+				summaryThing.offsetHeight;
+				summaryThing.classList.add(curAnim);
+				const dura = parseFloat(getComputedStyle(summaryThing).getPropertyValue("--transition-speed")) || 0.3;
+				// ахахахах dura
+				// я --transition-speed так далеко еще не сувал.
+				// так
+				setTimeout(() => {}, dura*1000);
+				// 1000 дур ()=>{}
+			});
+		});
+	</script>
+</body>
+</html>
