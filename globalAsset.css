@@ -13,23 +13,23 @@
 		}
 		@font-face {
 			font-family: Nimbus;
-			src: url('fonts/nimbus.otf');
+			src: url('assets/fonts/nimbus.otf');
 		}
 		@font-face {
 			font-family: Gratis;
-			src: url('fonts/gratis.ttf');
+			src: url('assets/fonts/gratis.ttf');
 		}
 		@font-face {
 			font-family: CCUltimatum;
-			src: url('fonts/ccub.ttf');
+			src: url('assets/fonts/ccub.ttf');
 		}
 		@font-face {
 			font-family: ShareTech;
-			src: url('fonts/sharetech.otf');
+			src: url('assets/fonts/sharetech.otf');
 		}
 		@font-face {
 			font-family: Rubik;
-			src: url('fonts/rubik.ttf');
+			src: url('assets/fonts/rubik.ttf');
 		}
 		
 		* {
@@ -56,6 +56,10 @@
 			font-family: CCUltimatum;
 			font-size: 25px;
 		}
+		article {
+			text-indent: var(--default-text-indent);
+			hyphens: auto;
+		}
 
 		/* Фон */
 		.background-canvas {
@@ -67,6 +71,7 @@
 			z-index: -10;
 			background: radial-gradient(circle at center, #08241f 0%, #050a0a 100%);
 			overflow: hidden;
+			transition: background-color 1s ease;
 		}
 		.bg-shape {
 			position: absolute;
@@ -74,6 +79,7 @@
 			opacity: 0.15;
 			border-radius: 50%;
 			animation: float 20s infinite ease-in-out;
+			transition: background-color 1s ease;
 		}
 		.shape-1 {
 			width: 500px;
@@ -362,7 +368,7 @@
 	.loadPatch /*предохранитель при загрузке window*/ {
 		transition: opacity 0.5s ease-out;
 		opacity: 0;
-		transform: translateZ(0); /* против мерцания */
+		will-change: opacity; /* против мерцания */
 	}
 	.loadPatch.done {
 		opacity: 1;
@@ -371,11 +377,10 @@
 		position: fixed;
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%, -50%);
 		display: block;
 		width: 88px;
 		height: 128px;
-		background-image: url('media/carlo.png');
+		background-image: url('assets/media/general/boot.png');
 		transform: rotate(-45deg);
 		background-size: cover;
 		animation: rotate-loader infinite 3s linear;
@@ -394,10 +399,10 @@
 			transform: translate(-50%, -50%) rotate(315deg);
 		}
 	}
-	/* премиум эмодзи выглядят лучше */
-	.inline {
+
+	.inline /* квадратные */ {
 		display: inline-block;
-		width: 20px; /* дефолт для иконки */
+		width: 20px;
 		height: 0; /* противохитбокс */
 		position: relative;
 	}
@@ -405,10 +410,35 @@
 	.inline svg {
 		position: absolute;
 		bottom: -0.3em;
-		left: 0px;
-		width: 20px;
+		left: 0;
+		min-width: 20px;
 		height: 20px;
 	}
+	
+	.inline.wide /* дичь для inline с отношением > 1:1 */ {
+		margin: 0;
+		padding: 0;
+		display: inline-block;
+		width: auto;
+		height: 0;
+		position: relative;
+	}
+	.inline.wide .wrap {
+		margin: 0;
+		padding: 0;
+		position: relative;
+		max-height: 0px;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+	}
+	.inline.wide .wrap img,
+	.inline.wide .wrap svg {
+		position: relative;
+		max-height: 20px;
+		height: auto;
+	}
+	
 	.videoloop /* гифки */ {
 		display: block;
 		width: 100%;
@@ -432,10 +462,10 @@
 		border-radius: 6px 6px 0 0;
 	}
 	.videoloop img {
-    		width: 100%;
-    		height: auto;
-    		display: block;
-    		margin: 0 auto;
+   		width: 100%;
+   		height: auto;
+    	display: block;
+   		margin: 0 auto;
 	}
 	.videoloop p {
 		text-align: center;
